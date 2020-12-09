@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Downloading File in... </title>
+	<link 
+		rel="stylesheet" 
+		type="text/css" 
+		href="downloadPTE.css">
+	<script>
+		async function downloadTE() {
+			for (var i = 0; i < 5; i++) {
+            	await sleep(1000);
+                var x = 5 - i;
+                document.getElementById("timeoutHeader").innerHTML = "Your Download Will Begin in " + x + " seconds..."; 
+				document.getElementsByTagName("title").innerHTML = "Downloading File in " + x + " seconds";
+            }
+            await sleep(1000);
+            document.getElementById("timeoutHeader").innerHTML = "Downloading...";
+            await sleep(1000);
+            document.location = "https://github.com/pluto7073/plutoprogs/raw/main/TextEditor/TextEditorSetup.exe";
+        }
+        function sleep(ms) {
+            return new Promise(
+				resolve => setTimeout(resolve, ms)
+            );
+        }
+        downloadTE();
+	</script>
+	<link
+		rel="icon"
+		type="image/jpg"
+		href="files/images/textEditor.jpg">
+</head>
+<body>
+	<div class="body">
+		<img src="files/images/textEditor.jpg" alt="" id="iconImg"/>
+        <br>
+		<br>
+		<h1 id="title"> Pluto's Text Editor </h1>
+		<br>
+		<br>
+        <span id="timeoutHeader" onClick="downloadTE()">Your Download Will Begin Soon...</span>
+        <br>
+		<br>
+        <span id="notWorking">Download not working? Try the 
+        	<a href="https://github.com/pluto7073/plutoprogs/raw/main/TextEditor/TextEditorSetup.exe" target="_blank"> Direct Link </a>
+        </span>
+	</div>
+</body>
+</html>

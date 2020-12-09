@@ -1,0 +1,26 @@
+#timeoutHeader {
+    font-size: 36px;
+    font-family: Minecraft;
+    margin: 200px;
+}
+
+#notWorking {
+    font-size: 36px;
+    font-family: Ariel;
+    margin: 200px;
+}
+
+#iconImg {
+	margin-left: 200px;
+	margin-top: 100px;
+}
+
+#title {
+	margin-left: 200px;
+	margin-top: 50px;
+}
+
+body {
+	background-color: #222;
+	color: #eee;
+}
