@@ -10,6 +10,7 @@ body {
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-attachment: fixed;
+    background-size: cover;
 }
 .headerImage {
 	text-align: center;
