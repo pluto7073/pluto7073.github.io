@@ -1,0 +1,13 @@
+---
+// From quiltmc.org
+export interface Props {
+    href: URL | string;
+}
+
+const { href } = Astro.props as Props;
+---
+
+<head>
+    <meta charset="utf-8"/>
+    <title> Redirecting to </title>
+</head>

@@ -1,0 +1,21 @@
+---
+export interface FooterLinkProps {
+    href: string | URL;
+    class: string | null | undefined;
+    icon: string;
+}
+
+const { href, class: className, icon, ...props } = Astro.props as FooterLinkProps;
+---
+
+<a href={href}
+   target="_blank"
+   rel="noopener noreferrer"
+   class:list={[
+       className,
+       "flex items-center gap-2 hover:text-purple-400 transition-colors duration-300 text-sm"
+   ]}
+   {...props}>
+    <iconify-icon icon={icon} width="20" height="20"></iconify-icon>
+    <span><slot/></span>
+</a>

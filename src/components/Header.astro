@@ -1,0 +1,20 @@
+---
+import HeaderLink from "./HeaderLink.astro"
+---
+
+<header id="header" transition:persist class="sticky top-0 z-1000 mt-8">
+    <div class="absolute opacity-0 inset-x-0 top-0 h-full shadow-2xl transition-opacity duration-300 bg-black/20" style="backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); will-change: opacity;"></div>
+    <nav class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between relative z-10">
+
+        <a href="/" class="flex items-center gap-2 hover:text-purple-400 transition-colors duration-200">
+            <img src="/favicon/favicon.ico" width="60" height="60" alt="$Pluto Games Logo$"/>
+            <h1 class="text-xl font-semibold text-gray-200 hover:text-purple-400 transition-colors duration-200"> Pluto Games </h1>
+        </a>
+
+        <div class="flex items-center gap-8">
+            <HeaderLink href="/docs"> Docs </HeaderLink>
+        </div>
+
+    </nav>
+
+</header>

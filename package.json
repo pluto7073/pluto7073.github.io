@@ -9,7 +9,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.16.6"
+    "@astrojs/mdx": "^4.3.13",
+    "@tailwindcss/vite": "^4.1.18",
+    "astro": "^5.16.6",
+    "iconify-icon": "^3.0.2",
+    "tailwindcss": "^4.1.18"
   },
   "description": "```sh npm create astro@latest -- --template basics ```",
   "main": "index.js",

@@ -1,0 +1,150 @@
+---
+import "../styles/global.css"
+export interface HeadProps {
+    title: string;
+    description?: string;
+    date?: string;
+}
+
+const props = Astro.props as HeadProps;
+const description = props.description ?? "";
+---
+
+<title> {props.title} | Pluto Games </title>
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#8B5CF6" />
+<meta name="title" content={props.title} />
+<meta name="description" content={description} />
+<meta name="generator" content={Astro.generator} />
+<link rel="icon" type="image/png" href="/favicon/icon-256.png">
+<style is:global>
+
+    @reference "tailwindcss";
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    @keyframes ticker-move {
+        0% {
+            transform: translateX(0%);
+        }
+        100% {
+            transform: translateX(-33.3333333%);
+        }
+    }
+
+    @font-face {
+        font-family: "parchment";
+        src: url("/fonts/PARCHM.woff2") format('woff2');
+        font-style: normal;
+        font-weight: 800;
+        font-display: swap;
+    }
+
+    .ticker-item {
+        width: 50%;
+        flex-shrink: 0;
+    }
+
+    .ticker-move {
+        animation: ticker-move 20s linear infinite;
+    }
+
+    .font-parchment {
+        font-family: parchment, fantasy;
+    }
+
+    .glow-border {
+        --b: 2px;
+        border: var(--b) solid transparent;
+        border-radius: 9999px;
+        background:
+                linear-gradient(rgba(18, 18, 28, 0.9), rgba(15, 23, 42, 0.95)) padding-box,
+                linear-gradient(to right, #a855f7, #c084fc) border-box;
+        background-clip: padding-box, border-box;
+        background-origin: padding-box, border-box;
+        box-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
+    }
+
+    .terminal-cursor {
+        padding-bottom: 1px;
+        border-bottom: 2px solid transparent;
+        animation: blink 1.2s step-end infinite;
+    }
+
+    @keyframes blink {
+        from, to {
+            border-bottom-color: transparent;
+        }
+        50% {
+            border-bottom-color: #e5e7eb;
+        }
+    }
+
+    .fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Page load fade-in animation */
+    body {
+        opacity: 0;
+        animation: pageLoad 0.3s ease-out forwards;
+    }
+
+    @keyframes pageLoad {
+        0% {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Staggered animations for different sections */
+    .page-header {
+        opacity: 0;
+        animation: slideInUp 0.3s ease-out 0.05s forwards;
+    }
+
+    .posts-grid {
+        opacity: 0;
+        animation: slideInUp 0.3s ease-out 0.1s forwards;
+    }
+
+    .post-card {
+        opacity: 0;
+        animation: slideInUp 0.25s ease-out forwards;
+    }
+
+    .post-card:nth-child(1) { animation-delay: 0.15s; }
+    .post-card:nth-child(2) { animation-delay: 0.2s; }
+    .post-card:nth-child(3) { animation-delay: 0.25s; }
+    .post-card:nth-child(4) { animation-delay: 0.3s; }
+    .post-card:nth-child(5) { animation-delay: 0.35s; }
+    .post-card:nth-child(6) { animation-delay: 0.4s; }
+    .post-card:nth-child(n+7) { animation-delay: 0.45s; }
+
+    @keyframes slideInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+
