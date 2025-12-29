@@ -1,0 +1,28 @@
+---
+import Head from "../../components/Head.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<html lang="en">
+<head>
+    <Head title="Wiki"/>
+</head>
+<body class="font-sans m-0 p-0 text-left min-h-screen text-gray-200 text-base leading-relaxed overflow-x-hidden relative"
+      style="background: linear-gradient(135deg, #000000 0%, #51317e 100%) fixed;">
+<Header/>
+
+<main transition:animate="slide" class="w-full max-w-6xl mx-auto px-4 py-8 relative z-2 min-h-[calc(100vh-120px)]">
+    <section class="page-header text-center py-16 mb-12">
+        <h1 class="text-6xl font-extrabold mb-4 text-[#9082CE]"> Mod Wikis </h1>
+
+        <p class="glow-border text-gray-500 font-mono"> Coming Soon! <br/><br/> In the meantime: <br/>
+        <a href="https://github.com/pluto7073/PlutosDrinksAPI/wiki" class="text-gray-200 hover:text-purple-400 transition-colors duration-200"> Pluto's Drinks Wiki </a>
+        </p>
+    </section>
+</main>
+
+<Footer/>
+
+</body>
+</html>
