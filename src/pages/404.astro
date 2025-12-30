@@ -1,0 +1,27 @@
+---
+import Footer from "../components/Footer.astro"
+import Header from "../components/Header.astro"
+import Head from "../components/Head.astro"
+---
+<!doctype HTML>
+<html lang="en">
+<head>
+    <Head title="Page Not Found"/>
+</head>
+<body class="font-sans m-0 p-0 text-left min-h-screen text-gray-200 text-base leading-relaxed overflow-x-hidden relative"
+      style="background: linear-gradient(135deg, #000000 0%, #5a39a0 100%) fixed;">
+    <Header/>
+
+    <main transition:animate="slide" class="w-full max-w-6xl mx-auto px-4 py-8 relative z-2 min-h-[calc(100vh-120px)]">
+        <section class="page-header text-center py-16 mb-12 glow-inner rounded-3xl">
+            <h1 class="text-5xl font-extrabold mb-4 text-[#9082CE]"> 404 </h1>
+            <p class="text-gray-400 text-lg max-w-2xl mx-auto mb-6">
+                That page doesn't exist!
+            </p>
+            <div class="w-48 h-1 mx-auto rounded-full separator transition-all"></div>
+        </section>
+    </main>
+
+    <Footer/>
+</body>
+</html>
