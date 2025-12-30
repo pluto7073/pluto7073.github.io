@@ -10,7 +10,7 @@ const { id, banner, name, desc } = Astro.props as ModProps;
 ---
 
 <article class="post-card group relative overflow-hidden rounded-2xl bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 transition-all duration-300 hover:bg-slate-900/80 hover:transform hover:scale-105">
-    <a href={`/mods/${id}/`} class="block">
+    <a href={`/mods/${id}/`} class="block active:transform active:scale-95">
         <div class="p-6">
             <div class="flex items-center gap-2 mb-3">
                 <img src={banner} width="100%" height="25%" alt=""/>

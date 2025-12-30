@@ -76,6 +76,17 @@ const description = props.description ?? "";
         box-shadow: 0 0 12px rgba(168, 85, 247, 0.6) inset;
     }
 
+    .glow-no-round {
+        --b: 2px;
+        border: var(--b) solid transparent;
+        background:
+            linear-gradient(rgba(18, 18, 28, 0.9), rgba(15, 23, 42, 0.95)) padding-box,
+            linear-gradient(to right, #a855f7, #c084fc) border-box;
+        background-clip: padding-box, border-box;
+        background-origin: padding-box, border-box;
+        box-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
+    }
+
     .separator {
         background: linear-gradient(90deg, #10514c 0%, #2ac1b5 25%, #eeeeee 50%, #4597ef 75%, #0d5199 100%);
     }

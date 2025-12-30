@@ -1,3 +1,238 @@
 ---
+import type { CollectionEntry } from "astro:content";
+import Head from "../components/Head.astro"
+import Header from "../components/Header.astro"
+import Footer from "../components/Footer.astro"
+import { ClientRouter } from "astro:transitions";
 
+type Props = CollectionEntry<"mods">['data'];
+
+const {title, desc, icon, banner, curseforge, modrinth, wiki } = Astro.props as Props;
 ---
+
+<html lang="en" class="scroll-smooth min-h-screen">
+<head>
+    <Head title={title} description={desc}/>
+    <style>
+        @reference "tailwindcss";
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #8b5cf6;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a855f7;
+        }
+
+        .backdrop-blur-2xl {
+            backdrop-filter: blur(32px) !important;
+            -webkit-backdrop-filter: blur(32px) !important;
+        }
+
+        html {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #000000 0%, #51317e 100%) fixed;
+            background-attachment: fixed;
+        }
+
+        body {
+            min-height: 100vh;
+            background: transparent;
+        }
+
+        .prose-content :global(h1) {
+            @apply text-3xl font-bold text-[#9082CE] mt-12 mb-6 pb-2 border-b-2 border-purple-400/30;
+            text-shadow: 0 0 20px rgba(144, 130, 206, 0.5);
+        }
+
+        .prose-content :global(h2) {
+            @apply text-2xl font-semibold text-[#9082CE] mt-10 mb-5 pb-2 border-b border-purple-400/20;
+        }
+
+        .prose-content :global(h3) {
+            @apply text-xl font-semibold text-purple-400 mt-8 mb-4;
+        }
+
+        .prose-content :global(h4) {
+            @apply text-lg font-semibold text-purple-300 mt-6 mb-3;
+        }
+
+        .prose-content :global(h5) {
+            @apply text-base font-semibold text-purple-300 mt-6 mb-3;
+        }
+
+        .prose-content :global(h6) {
+            @apply text-sm font-semibold text-purple-400 mt-5 mb-2;
+        }
+
+        .prose-content :global(p) {
+            @apply mb-5 leading-relaxed text-gray-300 text-base;
+        }
+
+        .prose-content :global(a) {
+            @apply text-purple-400 hover:text-pink-400 transition-colors duration-200 underline decoration-purple-400/50 hover:decoration-pink-400/50;
+        }
+
+        .prose-content :global(strong) {
+            @apply text-purple-300 font-semibold;
+        }
+
+        .prose-content :global(em) {
+            @apply text-purple-200 italic;
+        }
+
+        .prose-content :global(ul) {
+            @apply mb-5 pl-6 space-y-2;
+        }
+
+        .prose-content :global(ol) {
+            @apply mb-5 pl-6 space-y-2;
+        }
+
+        .prose-content :global(li) {
+            @apply text-gray-300 leading-relaxed;
+        }
+
+        .prose-content :global(ul li) {
+            @apply relative;
+        }
+
+        .prose-content :global(ul li::before) {
+            content: '';
+            @apply absolute left-[-1.5rem] top-[0.6rem] w-2 h-2 bg-purple-400 rounded-full;
+        }
+
+        .prose-content :global(ol li) {
+            @apply relative;
+        }
+
+        .prose-content :global(blockquote) {
+            @apply border-l-4 border-purple-400 pl-6 py-4 my-6 bg-slate-800/50 rounded-r-lg;
+        }
+
+        .prose-content :global(blockquote p) {
+            @apply text-purple-200 italic mb-0;
+        }
+
+        .prose-content :global(code) {
+            @apply bg-gradient-to-r from-purple-900/30 to-purple-800/30 text-purple-300 px-2 py-1 rounded text-base font-mono;
+        }
+
+        .prose-content :global(table) {
+            @apply w-full my-6 border-collapse;
+        }
+
+        .prose-content :global(th) {
+            @apply bg-purple-900/30 text-purple-300 font-semibold p-3 border border-purple-500/30;
+        }
+
+        .prose-content :global(td) {
+            @apply p-3 border border-purple-500/20 text-gray-300;
+        }
+
+        .prose-content :global(hr) {
+            @apply my-8 border-purple-400/30;
+        }
+
+        .prose-content :global(pre) {
+            @apply relative bg-[#1A1B26] border border-purple-500/30 rounded-xl my-6 p-0;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.25);
+            overflow: hidden;
+        }
+
+        .prose-content :global(.code-container) {
+            @apply flex items-stretch;
+        }
+
+        .prose-content :global(pre code) {
+            @apply block overflow-x-auto pr-4 py-4 text-base flex-1;
+            font-family: 'Fira Code', monospace;
+            line-height: 1.6;
+            background-color: #221032; /* Ensure it has a background */
+        }
+
+        .prose-content :global(.line-numbers-wrapper) {
+            @apply w-12 shrink-0 text-right pr-4 pt-4 text-white select-none text-base;
+            font-family: 'Fira Code', monospace;
+            line-height: 1.6;
+            background-color: #442560; /* Different background for distinction */
+            border-right: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .prose-content :global(.copy-button) {
+            @apply absolute top-3 right-3 bg-slate-800/50 text-gray-300 hover:bg-purple-600/70 hover:text-white p-2 rounded-lg transition-colors duration-200 z-10;
+        }
+
+        .prose-content :global(.copy-button[data-copied]) {
+            @apply bg-purple-600/80 text-white;
+        }
+
+    </style>
+</head>
+<body class="min-h-screen">
+    <Header/>
+    <main transition:animate="slide" class="w-full max-w-4xl mx-auto px-4 py-8 min-h-[calc(100vh-120px)]">
+        <article>
+            <div class="text-center mb-12">
+                <img src={banner} alt="" class="rounded-2xl mb-10"/>
+                <div class="glow-inner p-4 bg-slate-800 rounded-xl flex">
+                    <div class="text-left text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                        <img src={icon} alt="" class="glow-no-round rounded-xl mr-3" width="75"/>
+                    </div>
+
+                    <div class="text-left text-4xl md:text-5xl font-bold text-white mb-6 leading-tight flex flex-col ml-3">
+                        <h1> {title} </h1>
+
+                        <p class="text-gray-400 font-mono text-lg max-w-xl mx-auto mb-6 mt-2">
+                            {desc}
+                        </p>
+
+                    </div>
+
+                    <!-- Downloads -->
+                    <div class="flex flex-col ml-auto">
+                        { modrinth && (
+                                <a href={"https://modrinth.com/mod/" + modrinth}
+                                   class="rounded-xl bg-[#1bd96a] p-3 font-bold text-gray-950 mt-1.5 mb-1.5 hover:transform hover:scale-105 transition-all duration-300 active:transform active:scale-95 block" target="_blank">
+                                    <iconify-icon icon="simple-icons:modrinth"></iconify-icon>
+                                    <span>Modrinth</span>
+                                </a>
+                        )}
+
+                        { curseforge && (
+                            <a href={"https://www.curseforge.com/minecraft/mc-mods/" + curseforge}
+                               class="rounded-xl bg-[#eb622b] p-3 font-bold text-white mt-1.5 mb-1.5 hover:transform hover:scale-105 transition-all duration-300 active:transform active:scale-95 block" target="_blank">
+                                <iconify-icon icon="simple-icons:curseforge" width="20" height="20"></iconify-icon>
+                                <span>Curseforge</span>
+                            </a>
+                        )}
+
+                        { wiki && (
+                            <a href={wiki}
+                               class="rounded-xl bg-gray-400 p-3 font-bold text-gray-950 mt-1.5 mb-1.5 hover:transform hover:scale-105 transition-all duration-300 active:transform active:scale-95 block">
+                                <iconify-icon icon="si:book-line"></iconify-icon>
+                                <span>Wiki</span>
+                            </a>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <div class="max-w-none prose-content glow-no-round rounded-2xl p-5">
+            <slot/>
+        </div>
+    </main>
+
+    <Footer/>
+</body>
+</html>
