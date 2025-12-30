@@ -71,6 +71,15 @@ const description = props.description ?? "";
         box-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
     }
 
+    .glow-inner {
+        --b: 2px;
+        box-shadow: 0 0 12px rgba(168, 85, 247, 0.6) inset;
+    }
+
+    .separator {
+        background: linear-gradient(90deg, #10514c 0%, #2ac1b5 25%, #eeeeee 50%, #4597ef 75%, #0d5199 100%);
+    }
+
     .terminal-cursor {
         padding-bottom: 1px;
         border-bottom: 2px solid transparent;
@@ -117,7 +126,7 @@ const description = props.description ?? "";
         animation: slideInUp 0.3s ease-out 0.05s forwards;
     }
 
-    .posts-grid {
+    .mods-grid {
         opacity: 0;
         animation: slideInUp 0.3s ease-out 0.1s forwards;
     }

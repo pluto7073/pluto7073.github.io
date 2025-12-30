@@ -7,7 +7,7 @@ import HeaderLink from "./HeaderLink.astro"
     <nav class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between relative z-10">
 
         <a href="/" class="flex items-center gap-2 hover:text-purple-400 transition-colors duration-200">
-            <img src="/favicon/favicon.ico" width="60" height="60" alt="$Pluto Games Logo$"/>
+            <img src="/favicon/favicon.ico" width="60" height="60" alt="$Pluto Games Logo$" class="rounded-2xl"/>
             <h1 class="text-xl font-semibold text-gray-200 hover:text-purple-400 transition-colors duration-200"> Pluto Games </h1>
         </a>
 
@@ -20,3 +20,52 @@ import HeaderLink from "./HeaderLink.astro"
     </nav>
 
 </header>
+
+<script>
+    import 'iconify-icon';
+
+    function handleScroll() {
+        const header = document.getElementById('header');
+        const blurBg = header?.querySelector('div[style*="backdrop-filter"]');
+        if (!blurBg) return;
+
+        if (window.scrollY > 50) {
+            blurBg.classList.remove('opacity-0');
+            blurBg.classList.add('opacity-100');
+        } else {
+            blurBg.classList.remove('opacity-100');
+            blurBg.classList.add('opacity-0');
+        }
+    }
+
+    document.addEventListener('scroll', handleScroll);
+    document.addEventListener('astro:page-load', () => {
+        document.addEventListener('scroll', handleScroll);
+        handleScroll();
+    });
+
+    // Initial call on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        handleScroll();
+    });
+</script>
+
+
+
+<style>
+    /* Force backdrop blur to work in Chromium browsers */
+    header div[style*="backdrop-filter"] {
+        backdrop-filter: blur(32px) !important;
+        -webkit-backdrop-filter: blur(32px) !important;
+        transform: translateZ(0);
+        will-change: opacity;
+    }
+</style>
+
+<style>
+    @media (max-width: 768px) {
+        nav {
+            padding: 0 1rem;
+        }
+    }
+</style>

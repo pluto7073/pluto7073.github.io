@@ -1,0 +1,36 @@
+---
+export interface ModProps {
+    id: string;
+    banner: string | null | undefined;
+    name: string;
+    desc: string;
+}
+
+const { id, banner, name, desc } = Astro.props as ModProps;
+---
+
+<article class="post-card group relative overflow-hidden rounded-2xl bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 transition-all duration-300 hover:bg-slate-900/80 hover:transform hover:scale-105">
+    <a href={`/mods/${id}/`} class="block">
+        <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+                <img src={banner} width="100%" height="25%" alt=""/>
+            </div>
+
+            <h2 class="font-bold text-gray-100 mb-3 group-hover:text-teal-200 transition-colors duration-300 leading-tight text-xl">
+                {name}
+            </h2>
+
+            <p class="text-gray-400 text-sm leading-relaxed mb-4 line-clamp-3">
+                {desc}
+            </p>
+
+            <div class="flex items-center justify-end">
+                <span class="text-teal-600 text-sm font-medium group-hover:text-blue-400 transition-colors duration-300">
+                    View & Download →
+                </span>
+            </div>
+        </div>
+
+        <div class="absolute top-0 left-0 w-full h-1 separator opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    </a>
+</article>

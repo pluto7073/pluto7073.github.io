@@ -1,0 +1,22 @@
+---
+import ModPage from '../../layouts/ModPage.astro'
+import { type CollectionEntry, getCollection } from "astro:content";
+import { render } from "astro:content";
+
+export async function getStaticPaths() {
+    const mods = await getCollection('mods');
+    return mods.map((mod) => ({
+        params: { slug: mod.id },
+        props: mod,
+    }))
+}
+
+type Props = CollectionEntry<'mods'>
+
+const mod = Astro.props;
+const { Content } = await render(mod);
+---
+
+<ModPage {...mod.data}>
+    <Content />
+</ModPage>

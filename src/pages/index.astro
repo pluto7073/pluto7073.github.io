@@ -2,28 +2,46 @@
 import Head from "../components/Head.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import Mod from "../components/Mod.astro"
 ---
-
+<!doctype html>
 <html class="scroll-smooth" lang="en">
 	<head>
 		<Head title="Home"/>
 	</head>
 	<body class="font-sans m-0 p-0 text-left min-h-screen text-gray-200 text-base leading-relaxed overflow-x-hidden relative"
-		  style="background: linear-gradient(135deg, #000000 0%, #51317e 100%) fixed;">
+		  style="background: linear-gradient(135deg, #000000 0%, #5a39a0 100%) fixed;">
 	<Header/>
 
 	<main transition:animate="slide" class="w-full max-w-6xl mx-auto px-4 py-8 relative z-2 min-h-[calc(100vh-120px)]">
-		<section class="page-header text-center py-16 mb-12">
+		<section class="page-header text-center py-16 mb-12 glow-inner rounded-3xl">
 			<div class="overflow-hidden">
 				<div class="flex ticker-move">
-					<div class="w-1/2 shrink-0"><h1 class="text-6xl font-extrabold mb-4 text-[#9082CE]"> Pluto Games </h1> </div>
-					<div class="w-1/2 shrink-0"><h1 class="text-6xl font-extrabold mb-4 text-[#9082CE]"> Pluto Games </h1> </div>
-					<div class="w-1/2 shrink-0"><h1 class="text-6xl font-extrabold mb-4 text-[#9082CE]"> Pluto Games </h1> </div>
-					<div class="w-1/2 shrink-0"><h1 class="text-6xl font-extrabold mb-4 text-[#9082CE]"> Pluto Games </h1> </div>
-					<div class="w-1/2 shrink-0"><h1 class="text-6xl font-extrabold mb-4 text-[#9082CE]"> Pluto Games </h1> </div>
+					<div class="w-1/2 shrink-0"><h1 class="text-5xl font-extrabold mb-4 text-[#9082CE]"> Pluto Games </h1> </div>
+					<div class="w-1/2 shrink-0"><h1 class="text-5xl font-extrabold mb-4 text-[#9082CE]"> Pluto Games </h1> </div>
+					<div class="w-1/2 shrink-0"><h1 class="text-5xl font-extrabold mb-4 text-[#9082CE]"> Pluto Games </h1> </div>
+					<!--div class="w-1/2 shrink-0"><h1 class="text-5xl font-extrabold mb-4 text-[#9082CE]"> Pluto Games </h1> </div-->
+					<!--div class="w-1/2 shrink-0"><h1 class="text-5xl font-extrabold mb-4 text-[#9082CE]"> Pluto Games </h1> </div-->
 				</div>
 			</div>
+			<p class="text-gray-400 text-lg max-w-2xl mx-auto mb-6">
+				Minecraft modding, datapacks, and other programs!
+			</p>
+			<div class="w-48 h-1 mx-auto rounded-full separator transition-all"></div>
+		</section>
 
+		<section class="mods-grid">
+			<div id="posts-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				<Mod id="plutoscoffee"
+					 banner="https://cdn.modrinth.com/data/A3cHwynO/images/348098e07e09cbd215f0f7bd13e02276dca0ba80.png"
+					 name="Pluto's Coffee Mod" desc="Make your very own starbucks!" />
+				<Mod id="teatime" name="Tea Time" desc="Spill the tea, sis" />
+				<Mod id="bartending" name="The Art of Bartending"
+					 desc="GOVERNMENT WARNING: (1) According to the Surgeon General, people should not drink alcoholic beverages during pregnancy because..." />
+				<Mod id="pdapi" name="Pluto's Drinks API" desc="The API that powers the Pluto's Drinks series" />
+				<Mod id="chemicals" name="Consumable Chemicals" desc="An API that allowed for tracked chemicals inside each player" />
+				<Mod id="icu_bundles" name="I Can't Update - Bundles of Bravery" desc="Backports the 1.21.2 Bundles to 1.20.1" />
+			</div>
 		</section>
 	</main>
 
