@@ -1,0 +1,112 @@
+---
+import {type CollectionEntry, getCollection} from "astro:content";
+import type {Drop} from "esbuild";
+const mods = (await getCollection('docs')).filter((doc) => doc.id.startsWith("wiki/") && doc.id.endsWith("/home")).map(doc => {
+    doc.id = doc.id.replace("wiki/", "").replace("/home", "");
+    return doc;
+});
+
+type DocsPage = CollectionEntry<'docs'>
+
+class SingleItem {
+    slug: string;
+    label: string;
+
+    constructor(slug: string, label: string) {
+        this.slug = slug;
+        this.label = label;
+    }
+}
+
+class MultipleItems {
+    slug?: string;
+    label: string;
+    items: (SingleItem | MultipleItems)[];
+
+    constructor(label: string, items: (SingleItem | MultipleItems)[], slug?: string) {
+        this.slug = slug;
+        this.label = label;
+        this.items = items;
+    }
+}
+
+interface Func1<V, U> {
+    (v: V) : U;
+}
+
+function count(char: string, str: string) {
+    let count = 0;
+    for (let i = 0; i < str.length; i++) {
+        let c = str.at(i);
+        if (c === char) {
+            count++;
+        }
+    }
+    return count;
+}
+
+function evaluatePaths(base: string, depth: number, paths: DocsPage[]): (SingleItem | MultipleItems)[] {
+    let entries: (SingleItem | MultipleItems)[] = [];
+    let dirs = new Map<string, DocsPage>();
+
+    paths.filter(doc => count("/", doc.id) === depth && doc.data.dir && doc.id.startsWith(base)).forEach(doc => {
+        let items = evaluatePaths(doc.id, depth + 1, paths);
+        dirs.set(doc.id.split("/")[depth], doc);
+        entries.push({ label: doc.data.mod, items, slug: doc.data.ignored ? undefined : "wiki/" + doc.id} as MultipleItems)
+    })
+
+    paths.filter(doc => count("/", doc.id) === depth && !dirs.has(doc.id.split("/")[depth]) && doc.id.startsWith(base) && !doc.data.ignored).forEach(doc => {
+        entries.push({ slug: doc.id, label: doc.data.title} as SingleItem);
+    })
+    paths.filter(doc => count("/", doc.id) === depth + 1)
+
+    return entries;
+}
+
+function printPaths(tree: (SingleItem | MultipleItems)[], prefix = ""): string[] {
+    let res: string[] = [];
+    if (!tree) {
+        return res;
+    }
+    for (let i = 0; i < tree.length; i++) {
+        let item = tree[i];
+        if (item instanceof SingleItem) {
+            res.push(prefix + "- " + (item as SingleItem).label);
+        } else {
+            res.push(prefix + "- " + (item as MultipleItems).label);
+            printPaths((item as MultipleItems).items, prefix + "-").forEach(str => res.push(str));
+        }
+    }
+    return res;
+}
+
+function createTree<U>(rawTree: (SingleItem | MultipleItems)[], itemTemplate: Func1<SingleItem, U>, listTemplate: Func1<U[], U>): U[] {
+    let list: U[] = [];
+    for (let item of rawTree) {
+        if (item instanceof SingleItem) {
+            list.push(itemTemplate(item as SingleItem))
+        } else {
+            // TODO finish
+        }
+    }
+}
+
+
+let docs = (await getCollection('docs')).filter((doc) => doc.id.startsWith("wiki/")).map(doc => {
+    doc.id = doc.id.replace("wiki/", "");
+    return doc;
+})
+
+let entries: (SingleItem | MultipleItems)[] = evaluatePaths("", 0, docs);
+
+entries.forEach(opt => console.log(opt.label))
+
+---
+
+<div class="">
+
+</div>
+
+{ printPaths(entries).map(val => (
+    <p> {val} </p> <br/>
+)) }

@@ -1,0 +1,89 @@
+---
+import {type CollectionEntry, getCollection, type InferEntrySchema, type RenderedContent,} from "astro:content";
+import { render } from "astro:content";
+import DocsPage from "../../layouts/DocsPage.astro";
+import {Dir} from "node:fs";
+
+export async function getStaticPaths() {
+    const docs = await getCollection('docs');
+    return docs.map((doc) => ({
+        params: { slug: doc.id },
+        props: doc,
+    }))
+}
+
+export async function getMods() {
+    const docs = await getCollection('docs');
+    let docsMap = new Map<string, {id: string, body?: string, collection: "docs", data: InferEntrySchema<"docs">, rendered?: RenderedContent, filePath?: string}>();
+    for (let x of docs) {
+        docsMap.set(x.id, x);
+    }
+    return docsMap;
+}
+
+export function repeatString(toRepeat: string, count: number): string {
+    let str = "";
+    for (let i = 0; i < count; i++) {
+        str += toRepeat;
+    }
+    return str;
+}
+
+type Props = CollectionEntry<'docs'>
+
+const doc = Astro.props as Props;
+const markdown = await render(doc);
+const { Content } = markdown;
+
+// Headings
+let headingsStr = "<table><tr><th>Content</th></tr><tr><td><ol>";
+let depth = 0;
+
+for (let i = 0; i < markdown.headings.length; i++) {
+    let heading = markdown.headings[i];
+    if (heading.depth > 3) continue;
+    if (heading.depth > depth) {
+        headingsStr += repeatString("<ul>", heading.depth - depth);
+    } else if (heading.depth < depth) {
+        headingsStr += repeatString("</ul>", depth - heading.depth);
+    }
+    depth = heading.depth;
+    headingsStr += "<li> <a href='#" + heading.slug + "'> " + heading.text + " </a></li>"
+}
+
+headingsStr += repeatString("</ul>", depth - 1) + "</ol></td></tr></table>"
+
+// Getting Wiki ID
+let dir = doc.filePath;
+if (dir === undefined) throw new Error();
+if (dir.startsWith("/")) {
+    dir = dir.substring(1);
+}
+let dirPaths = dir.split("/");
+if (dirPaths.length != undefined && dirPaths.length < 2) {
+    throw new Error();
+}
+
+if (dirPaths[dirPaths.length - 1] != "home.mdx") {
+    const mod_id = dirPaths[dirPaths.indexOf("docs") + 1]
+
+    const modData = (await getMods()).get(mod_id + "/home")?.data;
+
+    doc.data.mod = modData?.mod;
+    doc.data.modrinth = modData?.modrinth
+    doc.data.curseforge = modData?.curseforge;
+    doc.data.picture = modData?.picture;
+}
+
+const { title, desc, mod, modrinth, curseforge, picture } = doc.data
+---
+
+<DocsPage title={title} desc={desc} headings={markdown.headings} mod={mod} modrinth={modrinth} curseforge={curseforge} banner={picture}>
+
+    <p> {desc} </p>
+
+    <article set:html={headingsStr} />
+
+    <Content/>
+
+</DocsPage>

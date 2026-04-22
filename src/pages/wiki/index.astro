@@ -2,6 +2,22 @@
 import Head from "../../components/Head.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import Wiki from "../../components/Wiki.astro";
+import {getCollection, type InferEntrySchema, type RenderedContent} from "astro:content";
+
+export async function getMods() {
+    const docs = await getCollection('docs');
+    let docsMap = new Map<string, {id: string, body?: string, collection: "docs", data: InferEntrySchema<"docs">, rendered?: RenderedContent, filePath?: string}>();
+    for (let x of docs) {
+        docsMap.set(x.id, x);
+    }
+    return docsMap;
+}
+
+const mods = (await getCollection('docs')).filter((doc) => doc.id.startsWith("wiki/") && doc.id.endsWith("/home")).map(doc => {
+    doc.id = doc.id.replace("wiki/", "").replace("/home", "");
+    return doc;
+});
 ---
 
 <html lang="en">
@@ -13,13 +29,23 @@ import Footer from "../../components/Footer.astro";
 <Header/>
 
 <main transition:animate="slide" class="w-full max-w-6xl mx-auto px-4 py-8 relative z-2 min-h-[calc(100vh-120px)]">
-    <section class="page-header text-center py-16 mb-12">
-        <h1 class="text-6xl font-extrabold mb-4 text-[#9082CE]"> Mod Wikis </h1>
 
-        <p class="glow-border text-gray-500 font-mono"> Coming Soon! <br/><br/> In the meantime: <br/>
-        <a href="https://github.com/pluto7073/PlutosDrinksAPI/wiki" class="text-gray-200 hover:text-purple-400 transition-colors duration-200"> Pluto's Drinks Wiki </a>
-        </p>
+    <h1 class="text-5xl font-extrabold mb-4 text-[#9082CE]"> Sorry! This Page is Under Construction! </h1>
+
+    <!--<section class="page-header text-center py-16 mb-12 glow-inner rounded-3xl">
+        <div class="w-full shrink-0 items-center text-center"><h1 class="text-5xl font-extrabold mb-4 text-[#9082CE]"> Mod Wikis </h1> </div>
+        <div class="w-48 h-1 mx-auto rounded-full separator transition-all"></div>
     </section>
+
+    <section class="mods-grid">
+        <div id="posts-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {
+                mods.map(doc => (
+                    <Wiki id={doc.id} banner={doc.data.picture} name={doc.data.mod} desc={doc.data.desc} />
+                ))
+            }
+        </div>
+    </section>-->
 </main>
 
 <Footer/>

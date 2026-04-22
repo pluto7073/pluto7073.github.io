@@ -1,5 +1,5 @@
 {
-  "name": "web-pluto7073-github-io",
+  "name": "pluto7073-github-io",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -9,16 +9,20 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.13",
-    "@astrojs/sitemap": "^3.6.0",
+    "@astrojs/mdx": "^5.0.3",
+    "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/starlight": "^0.38.3",
+    "@astrojs/starlight-tailwind": "^5.0.0",
     "@tailwindcss/vite": "^4.1.18",
-    "astro": "^5.16.6",
+    "astro": "^6.1.8",
+    "astro-expressive-code": "^0.41.7",
     "iconify-icon": "^3.0.2",
+    "starlight-theme-vintage": "^0.1.0",
     "tailwindcss": "^4.1.18"
   },
   "description": "```sh npm create astro@latest -- --template basics ```",
   "main": "index.js",
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "MIT"
 }

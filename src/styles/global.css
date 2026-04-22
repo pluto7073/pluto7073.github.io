@@ -1,6 +1,8 @@
 @import "tailwindcss";
+@import "@astrojs/starlight-tailwind";
 
 @layer base {
+
     html {
         font-family: 'Inter', system-ui, sans-serif;
     }
@@ -10,6 +12,152 @@
     }
 
     code, pre {
-        font-family: 'Fira Code', monospace;
+        font-family: 'JetBrains Mono', monospace;
     }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    @keyframes ticker-move {
+        0% {
+            transform: translateX(0%);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    .ticker-item {
+        width: 50%;
+        flex-shrink: 0;
+    }
+
+    .ticker-move {
+        animation: ticker-move 20s linear infinite;
+    }
+
+    .font-parchment {
+        font-family: parchment, fantasy;
+    }
+
+    .glow-border {
+        --b: 2px;
+        border: var(--b) solid transparent;
+        border-radius: 9999px;
+        background:
+                linear-gradient(rgba(18, 18, 28, 0.9), rgba(15, 23, 42, 0.95)) padding-box,
+                linear-gradient(to right, #a855f7, #c084fc) border-box;
+        background-clip: padding-box, border-box;
+        background-origin: padding-box, border-box;
+        box-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
+    }
+
+    .glow-inner {
+        --b: 2px;
+        box-shadow: 0 0 12px rgba(168, 85, 247, 0.6) inset;
+    }
+
+    .glow-no-round {
+        --b: 2px;
+        border: var(--b) solid transparent;
+        background:
+                linear-gradient(rgba(18, 18, 28, 0.9), rgba(15, 23, 42, 0.95)) padding-box,
+                linear-gradient(to right, #a855f7, #c084fc) border-box;
+        background-clip: padding-box, border-box;
+        background-origin: padding-box, border-box;
+        box-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
+    }
+
+    .separator {
+        background: linear-gradient(90deg, #10514c 0%, #2ac1b5 25%, #eeeeee 50%, #4597ef 75%, #0d5199 100%);
+    }
+
+    .terminal-cursor {
+        padding-bottom: 1px;
+        border-bottom: 2px solid transparent;
+        animation: blink 1.2s step-end infinite;
+    }
+
+    @keyframes blink {
+        from, to {
+            border-bottom-color: transparent;
+        }
+        50% {
+            border-bottom-color: #e5e7eb;
+        }
+    }
+
+    .fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Page load fade-in animation */
+    body {
+        opacity: 0;
+        animation: pageLoad 0.3s ease-out forwards;
+    }
+
+    @keyframes pageLoad {
+        0% {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Staggered animations for different sections */
+    .page-header {
+        opacity: 0;
+        animation: slideInUp 0.3s ease-out 0.05s forwards;
+    }
+
+    .mods-grid {
+        opacity: 0;
+        animation: slideInUp 0.3s ease-out 0.1s forwards;
+    }
+
+    .post-card {
+        opacity: 0;
+        animation: slideInUp 0.25s ease-out forwards;
+    }
+
+    .post-card:nth-child(1) { animation-delay: 0.15s; }
+    .post-card:nth-child(2) { animation-delay: 0.2s; }
+    .post-card:nth-child(3) { animation-delay: 0.25s; }
+    .post-card:nth-child(4) { animation-delay: 0.3s; }
+    .post-card:nth-child(5) { animation-delay: 0.35s; }
+    .post-card:nth-child(6) { animation-delay: 0.4s; }
+    .post-card:nth-child(n+7) { animation-delay: 0.45s; }
+
+    @keyframes slideInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    --color-accent-50: var(--color-purple-50);
+    --color-accent-100: var(--color-purple-100);
+    --color-accent-200: var(--color-purple-200);
+    --color-accent-300: var(--color-purple-300);
+    --color-accent-400: var(--color-purple-400);
+    --color-accent-500: var(--color-purple-500);
+    --color-accent-600: var(--color-purple-600);
+    --color-accent-700: var(--color-purple-700);
+    --color-accent-800: var(--color-purple-800);
+    --color-accent-900: var(--color-purple-900);
+    --color-accent-950: var(--color-purple-950);
 }

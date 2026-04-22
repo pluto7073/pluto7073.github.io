@@ -1,5 +1,7 @@
 import { glob } from "astro/loaders";
 import { defineCollection, z } from "astro:content"
+import { docsLoader } from "@astrojs/starlight/loaders";
+import { docsSchema } from "@astrojs/starlight/schema";
 
 const mods = defineCollection({
     loader: glob({ base: "./src/content/mods", pattern: '**/*.mdx' }),
@@ -14,4 +16,19 @@ const mods = defineCollection({
     })
 })
 
-export const collections = { mods };
+const docs = defineCollection({
+    loader: docsLoader(),
+    schema: docsSchema({
+        extend: z.object({
+            desc: z.string(),
+            mod: z.string().optional(),
+            modrinth: z.string().optional(),
+            curseforge: z.string().optional(),
+            picture: z.string().optional(),
+            dir: z.boolean().default(false),
+            ignored: z.boolean().default(false),
+        })
+    })
+})
+
+export const collections = { mods, docs };
