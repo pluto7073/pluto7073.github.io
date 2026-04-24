@@ -1,16 +1,22 @@
 ---
 import Search from "@astrojs/starlight/components/Search.astro"
 import SidebarContents from "./SidebarContents.astro";
+import type {CollectionEntry} from "astro:content";
+
+type DocProps = CollectionEntry<"docs">
+
+const { id } = Astro.locals.starlightRoute.entry as DocProps;
+
 ---
 
 <!-- Full Screen for Mobile -->
-<div id="mobileNav" class="">
+<div id="sidenav" class="">
 
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"> &times; </a>
 
     <Search />
 
-    <SidebarContents />
+    <SidebarContents currentPage={id.replace("wiki/", "")} />
 </div>
 
 <style>

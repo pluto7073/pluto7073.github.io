@@ -4,6 +4,7 @@ import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import Wiki from "../../components/Wiki.astro";
 import {getCollection, type InferEntrySchema, type RenderedContent} from "astro:content";
+import { count } from "../../components/SidebarContents.astro";
 
 export async function getMods() {
     const docs = await getCollection('docs');
@@ -14,8 +15,8 @@ export async function getMods() {
     return docsMap;
 }
 
-const mods = (await getCollection('docs')).filter((doc) => doc.id.startsWith("wiki/") && doc.id.endsWith("/home")).map(doc => {
-    doc.id = doc.id.replace("wiki/", "").replace("/home", "");
+const mods = (await getCollection('docs')).filter((doc) => doc.id.startsWith("wiki/") && doc.data.dir && count("/", doc.id) === 1).map(doc => {
+    doc.id = doc.id.replace("wiki/", "");
     return doc;
 });
 ---
@@ -30,9 +31,9 @@ const mods = (await getCollection('docs')).filter((doc) => doc.id.startsWith("wi
 
 <main transition:animate="slide" class="w-full max-w-6xl mx-auto px-4 py-8 relative z-2 min-h-[calc(100vh-120px)]">
 
-    <h1 class="text-5xl font-extrabold mb-4 text-[#9082CE]"> Sorry! This Page is Under Construction! </h1>
+    <!--h1 class="text-5xl font-extrabold mb-4 text-[#9082CE]"> Sorry! This Page is Under Construction! </h1-->
 
-    <!--<section class="page-header text-center py-16 mb-12 glow-inner rounded-3xl">
+    <section class="page-header text-center py-16 mb-12 glow-inner rounded-3xl">
         <div class="w-full shrink-0 items-center text-center"><h1 class="text-5xl font-extrabold mb-4 text-[#9082CE]"> Mod Wikis </h1> </div>
         <div class="w-48 h-1 mx-auto rounded-full separator transition-all"></div>
     </section>
@@ -45,7 +46,7 @@ const mods = (await getCollection('docs')).filter((doc) => doc.id.startsWith("wi
                 ))
             }
         </div>
-    </section>-->
+    </section>
 </main>
 
 <Footer/>

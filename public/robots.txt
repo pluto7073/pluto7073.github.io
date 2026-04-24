@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://pluto7073.github.io/sitemap-index.xml
