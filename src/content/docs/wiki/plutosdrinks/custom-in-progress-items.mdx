@@ -1,0 +1,59 @@
+---
+title: "Custom In-Progress Items"
+desc: "This tutorial shows you how to create a custom in-progress item in the drink workstation with a datapack"
+---
+
+In The Art of Bartending, you can use any plain glass as a drink to add ingredients to, and this will turn into a "Mixed Drink".
+
+This tutorial will teach you how to add this feature to a datapack.
+
+## A Few Requirements
+
+A base item that will turn into some form of drink when something is added to it, usually a glass or cup of some sort.
+
+A drink item that this base will turn into when added.
+
+Both the base item and the drink must be added to the item tag `pdapi:workstation_drinks` if they aren't already in the tag, this is so that they can be
+used as drinks in the Drink Workstation.
+
+The drink must be some instance of `AbstractCustomizableDrinkItem` in the code, a list of built-in drink items can be found [here](/wiki/plutosdrinks/valid-drink-bases).  If you are making a mod, then any item you create that extends that class will work.
+
+For this example, we will be making an Empty Bucket turn into a Latte (with Pluto's Coffee).
+
+## Creating the Recipe
+
+The item transformation functionality is added via a recipe.  The base syntax is below.
+
+```json
+{
+  "type": "pdapi:in_progress_item",
+  "base": {
+    "item": "minecraft:air"
+  },
+  "result": {
+    "item": "minecraft:air"
+  }
+}
+```
+
+`type`: this should be `pdapi:in_progress_item`
+`base`: this uses the standard [ingredient](https://minecraft.wiki/w/Recipe/Ingredient) syntax of a normal Minecraft Recipe.
+`result`: this uses the same result notation as a crafting recipe, but any specified "count" is overridden to 1. (Just a JSON object with the key 'item' mapping to the id of the result drink).
+
+### Example
+
+Using our above example, that would get us this JSON file
+
+`data/example/recipes/empty_bucket_to_latte.json`
+
+```json
+{
+  "type": "pdapi:in_progress_item",
+  "base": {
+    "item": "minecraft:empty_bucket"
+  },
+  "result": {
+    "item": "plutoscoffee:latte"
+  }
+}
+```

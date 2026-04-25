@@ -57,6 +57,9 @@ export function evaluatePaths(base: string, depth: number, paths: DocsPage[]): (
     paths.filter(doc => count("/", doc.id) === depth && doc.data.dir && doc.id.startsWith(base)).forEach(doc => {
         let items = evaluatePaths(doc.id, depth + 1, paths);
         dirs.set(doc.id.split("/")[depth], doc);
+        if (!doc.data.mod) {
+            doc.data.mod = doc.data.title;
+        }
         entries.push({ label: doc.data.mod, items, slug: doc.data.ignored ? undefined : doc.id} as MultipleItems)
     })
 
@@ -97,29 +100,31 @@ const { currentPage } = Astro.props as ExportProps;
 
 <ul class="top-level">{
     createTree(entries, item => (
-        <li><a href={"/wiki/" + item.slug} class="ml-6" class:list={[{large: count("/", currentPage) == 0}]} aria-current={currentPage == item.slug ? 'page' : undefined}><span> {item.label} </span></a></li>
+        <li class="single-link"><a href={"/wiki/" + item.slug} class="ml-6" class:list={[{large: count("/", currentPage) == 0}]} aria-current={currentPage == item.slug ? 'page' : undefined}><span> {item.label} </span></a></li>
         ), (item, contents) => (
-        <Dropdown docs={docs} isCurrent={item.slug ? item.slug == currentPage || currentPage.startsWith(item.slug) : false} label={item.label} slug={item.slug}>
+        <li><Dropdown docs={docs} isCurrent={item.slug ? item.slug == currentPage || currentPage.startsWith(item.slug) : false} label={item.label} slug={item.slug}>
             {contents}
-        </Dropdown>
+        </Dropdown></li>
         ))
 }</ul>
 
 <style>
     ul {
-        --sl-sidebar-item-padding-inline: 0.5rem;
+        //--sl-sidebar-item-padding-inline: 0.5rem;
         list-style: none;
         padding: 0;
     }
 
     li {
         overflow-wrap: anywhere;
+        margin-left: 24px;
     }
 
     ul ul li {
-        margin-inline-start: var(--sl-sidebar-item-padding-inline);
-        border-inline-start: 1px solid var(--sl-color-hairline-light);
-        padding-inline-start: var(--sl-sidebar-item-padding-inline);
+        //margin-inline-start: var(--sl-sidebar-item-padding-inline);
+        //margin-left: var(--sl-sidebar-item-padding-inline);
+        //border-inline-start: 1px solid var(--sl-color-hairline-light);
+        //padding-inline-start: var(--sl-sidebar-item-padding-inline);
     }
 
     .large {
@@ -130,20 +135,6 @@ const { currentPage } = Astro.props as ExportProps;
 
     .top-level > li + li {
         margin-top: 0.75rem;
-    }
-
-    summary {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0.2em var(--sl-sidebar-item-padding-inline);
-        line-height: 1.4;
-        cursor: pointer;
-        user-select: none;
-    }
-    summary::marker,
-    summary::-webkit-details-marker {
-        display: none;
     }
 
     .caret {
@@ -161,7 +152,6 @@ const { currentPage } = Astro.props as ExportProps;
         display: block;
         border-radius: 0.25rem;
         text-decoration: none;
-        color: var(--sl-color-gray-2);
         padding: 0.3em var(--sl-sidebar-item-padding-inline);
         line-height: 1.4;
     }
@@ -174,8 +164,8 @@ const { currentPage } = Astro.props as ExportProps;
     [aria-current='page'],
     [aria-current='page']:hover,
     [aria-current='page']:focus {
-        font-weight: 600;
-        color: var(--sl-color-text-invert);
+        font-weight: 1000;
+        color: var(--color-orange-950);
         background-color: var(--sl-color-text-accent);
     }
 

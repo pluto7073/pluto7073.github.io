@@ -14,42 +14,41 @@ const { label, docs, isCurrent, slug } = Astro.props as Props;
 
 ---
 
-<li><details open={isCurrent}>
-    <summary>
-        { slug ? (<a href={"/wiki/" + slug} class="large text-purple-300"> <span class="group-label">{label}</span> </a><iconify-icon icon="mingcute:left-full" width="30" />)
-            : (<span class="large text-purple-400 group-label"> {label} </span><iconify-icon icon="mingcute:left-full" width="30" />)}
+<details open={isCurrent}>
+    <summary class="sidebar-details fill-violet-800 h">
+        { slug ? (<a href={"/wiki/" + slug} class=""> <span class="group-label large text-purple-300 fill-violet-800">{label}</span> </a>)
+            : (<span class="large text-purple-400 group-label fill-violet-800"> {label} </span>)}
+        <iconify-icon icon="mingcute:left-fill" width="20" class:list={[{hidden: isCurrent}]}/>
+        <iconify-icon icon="mingcute:down-fill" width="20" class:list={[{hidden: !isCurrent}]}/>
     </summary>
 
     <ul>
         <slot/>
     </ul>
-</details></li>
+</details>
+
+<script>
+    for (let element of document.getElementsByClassName("sidebar-details")) {
+        element.addEventListener("click", function() {
+            let icons = element.getElementsByTagName("iconify-icon");
+            if (icons.length < 2) return;
+            icons[0].classList.toggle("hidden");
+            icons[1].classList.toggle("hidden")
+        })
+    }
+</script>
 
 <style>
     ul {
-        --sl-sidebar-item-padding-inline: 0.5rem;
+        //--sl-sidebar-item-padding-inline: 0.5rem;
         list-style: none;
         padding: 0;
-    }
-
-    li {
-        overflow-wrap: anywhere;
-    }
-
-    ul ul li {
-        margin-inline-start: var(--sl-sidebar-item-padding-inline);
-        border-inline-start: 1px solid var(--sl-color-hairline-light);
-        padding-inline-start: var(--sl-sidebar-item-padding-inline);
     }
 
     .large {
         font-size: var(--sl-text-lg);
         font-weight: 600;
         color: var(--sl-color-white);
-    }
-
-    .top-level > li + li {
-        margin-top: 0.75rem;
     }
 
     summary {
@@ -81,7 +80,7 @@ const { label, docs, isCurrent, slug } = Astro.props as Props;
         display: block;
         border-radius: 0.25rem;
         text-decoration: none;
-        color: var(--sl-color-gray-2);
+        //color: var(--sl-color-gray-2);
         padding: 0.3em var(--sl-sidebar-item-padding-inline);
         line-height: 1.4;
     }

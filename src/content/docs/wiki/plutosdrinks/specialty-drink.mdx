@@ -1,0 +1,291 @@
+---
+title: "Specialty Drink"
+desc: "Specialty Drinks are special recipes that represent a base drink and a series of additions."
+---
+
+**Specialty Drinks** are special recipes that represent a base drink and a series of additions.  These can have additional effects, not just the ones given by the additions it has.
+
+## Obtaining
+
+### Crafting in a Drink Workstation
+
+Recipes for various Specialty Drinks can be viewed via REI (other recipe viewer support coming soon).  Here you will be able to see the base drink you start with, and a series of items you need to add to the drink in order to create it.  A list of built-in drinks can be found below
+
+## Built-In Recipes
+
+<details>
+
+    <summary> Pluto's Coffee Mod </summary>
+
+    ### **Caffè Latte**
+
+    Base: `Latte`
+
+    Additions:
+    - `Espresso Shot x2`
+
+    Caffeine: `150`
+
+    Extra Effects:
+    - `Clears All Harmful Effects`
+
+
+    ### Mocha
+
+    Base: `Latte`
+
+    Additions:
+    - `Mocha Syrup x2`
+    - `Espresso Shot x2`
+
+    Caffeine: `150`
+
+    Extra Effects:
+    - `Restores 12 Hunger`
+    - `Clears All Harmful Effects`
+
+
+    ### Red Eye
+
+    Base: `Any Brewed Coffee`
+
+    Additions:
+    - `Espresso Shot x3`
+
+    Caffeine: `350`
+
+    Extra Effects:
+    - `Haste III for 2 Minutes`
+
+
+    ### Sweet Caramel Latte
+
+    Base: `Latte`
+
+    Additions:
+    - `Honey`
+    - `Caramel x2`
+    - `Espresso Shot x2`
+
+    Caffeine: `150`
+
+    Extra Effects:
+    - `Health Boost III for 2 Minutes`
+    - `Regeneration for 10 Seconds`
+    - `Absorption for 10 Seconds`
+    - `Restores 3 Hunger`
+
+</details>
+
+<details>
+
+    <summary> Tea Time </summary>
+
+    ### Sweetened Iced Tea
+
+    Base: `Black Tea`
+
+    Additions:
+    - `Ice`
+    - `Honey`
+    - `Sugar x2`
+
+    Caffeine: `50`
+
+    Extra Effects:
+    - `Standard Black Tea Effects`
+    - `Restores 3 Hunger`
+    - `Regeneration II for 10 Seconds`
+
+
+    ### Tea of Great Escape
+
+    Base: `Concealing Tea`
+
+    Additions:
+    - `Ice`
+    - `Milk`
+    - `Chorus Fruit`
+    - `Echo Shard`
+
+    Caffeine: `50`
+
+    Extra Effects:
+    - `Standard Concealing Tea Effects`
+    - `Fire Resistance II for 10 Seconds`
+    - `Clears All Harmful Effects`
+    - `Teleports you to a random location in a 12 Block radius`
+    - `Applies the Glowing effect to anyone (except you) in an 8 Block radius for 30 seconds`
+    - `Regeneration II for 10 seconds`
+
+</details>
+
+<details>
+
+    <summary> The Art of Bartending </summary>
+
+    ### Appletini
+
+    Base: `Cocktail Glass`
+
+    Additions:
+    - `Ice`
+    - `Shot of Vodka x4`
+    - `Shot of Apple Liqueur x2`
+    - `Sugar`
+    - `Apple`
+
+    Alcohol: 72g (~3.21oz of Pure Alcohol)
+
+    Extra Effects:
+    - `Restores 6 Hunger`
+    - `Fire Resistance II for 10 seconds`
+
+
+    ### Espresso Martini (Requires Pluto's Coffee Mod)
+
+    Base: `Cocktail Glass`
+
+    Additions:
+    - `Shot of Vodka`
+    - `Shot of Coffee Liqueur`
+    - `Espresso Shot`
+    - `Sugar`
+    - `Cocoa Bean`
+    - `Coffee Bean`
+
+    Alcohol: 26g (~1.15oz of Pure Alcohol)
+
+    Caffeine: 80
+
+    Extra Effects:
+    - `Restores 3 Hunger`
+
+
+    ### Martini
+
+    Base: `Cocktail Glass`
+
+    Additions:
+    - `Ice`
+    - `Shot of Dry Vermouth`
+    - `Shot of Gin x3`
+
+    Alcohol: 51g (~2.27oz of Pure Alcohol)
+
+    Extra Effects:
+    - `Fire Resistance II for 10 Seconds`
+
+
+
+    ### Margarita (Requires Fruitful Fun)
+
+    Base: `Cocktail Glass`
+
+    Additions:
+    - `Ice`
+    - `Shot of Tequila x2`
+    - `Shot of Orange Liqueur`
+    - `Lime`
+
+    Alcohol: 34g (~1.51oz of Pure Alcohol)
+
+    Extra Effects:
+    - `Fire Resistance II for 10 seconds`
+    - `Restores 3 Hunger`
+
+</details>
+
+## Specialty Drink Bases
+
+### pdapi:item
+
+The default kind of specialty drink base.  If the item you wish to specify has a different "in-progress item" (Glasses → Mixed Drinks in TAOB) then you must specify the "in-progress" item here.
+`item`: the item id of the drink base
+
+### teatime:tea
+
+Represents a bottle of tea, filtering for a specific type
+`tea`: the id of the tea you wish to specify
+
+### plutoscoffee:coffee
+
+Represents a bottle of coffee, filtering for a roast or type (light/medium/dark/espresso/decaf)
+`coffee`: the id of the coffee roast you wish to specify (light_roast, medium_roast, dark_roast, espresso, decaf)
+
+# Creating Custom Specialty Drinks
+
+Custom Specialty Drinks can be added via datapacks.  These files have a similar structure to [custom drink additions](https://github.com/pluto7073/PlutosDrinksAPI/wiki/How-to-Create-Custom-Additions).
+
+In your namespace folder of your datapack, create a new folder called `specialty_drinks`.  This is where our drinks will be stored.
+
+Create a new `.json` file in this folder.  The name of this file is the ID of your specialty drink.  Below is the syntax of the Specialty Drink JSON file, followed by an explanation of each part.
+
+```json
+{
+  "base": {
+    "type": "pdapi:item",
+    "item": "pdapi:example_drink"
+  },
+  "additions": [],
+  "chemicals": {
+    "pdapi:caffeine": 0,
+    "bartending:alcohol": 0
+  },
+  "color": 0,
+  "onDrinkActions": [],
+  "name": "Example Name"
+}
+```
+
+`base`: The object specifying the base.  Contains `type` for the serializer referenced above, plus any additional field based on the type
+
+`additions`: A list of steps to get this drink. This should be a list of IDs of each addition.  (E.G. `"additions": ["pdapi:ice", "pdapi:sugar"]`
+
+`chemicals`: A map containing the amounts of each chemical here.  The key is the chemical ID and can be any chemical from any mod, the value is the amount in the chemical's units of the chemical.  Any chemicals omitted will default to 0.
+
+`color`: An `int` representing the color of the drink in decimal form. You can use [this page](https://minecraft.wiki/w/Dye#Color_values) to see some decimal color values that Minecraft uses.
+
+`onDrinkActions`: A list of actions to apply to the player when they drink it.  Also applies all the actions of each of the additions required to make the drink by default, so these can be left out.  See the tutorial for [custom drink additions](https://github.com/pluto7073/PlutosDrinksAPI/wiki/How-to-Create-Custom-Additions#step-2---adding-ondrinkactions) for syntax help.
+
+`name`: The name to be displayed on the Specialty Drink item.  This can be either specified here or in a resourcepack using the translation key `drink.namespace.name_of_drink_file`.
+
+## Example
+
+For this example, we will be creating a drink using a Glass of Red Wine from `bartending` and various ingredients.  Since we want the base to be red wine, then that gets us `"base":"bartending:glass_of_red_wine:`.  Then say we want to add Glow Berries and Chorus Fruit, and we want our resulting drink to levitate the player.  We could call this `Levitating Wine`.
+
+`data/example/specialty_drinks/levitating_wine.json`
+
+```json5
+{
+   "type": "pdapi:specialty_drink", // Unneeded but we'll add it anyway
+   "base": "bartending:glass_of_red_wine", // Glass of Red Wine as our base
+   "additions": [ // The IDs of Glow Berries and Chorus Fruit additions
+      "pdapi:glow_berries",
+      "pdapi:chorus_fruit"
+   ],
+   "bartending:alcohol": 14, // Theres about 14g of Alcohol in 1 glass of wine in TAOB
+   "color": 11743532, // The Minecraft Red Dye color
+   "onDrinkActions": [
+      { // These first two actions just add the actions for Chorus Fruit and Glow Berries
+         "type": "pdapi:chorus_teleport",
+         "maxRadius": 8
+      },
+      {
+         "type": "pdapi:apply_status_effect",
+         "effect": "minecraft:glowing",
+         "duration": 1200,
+         "amplifier": 0
+      },
+      { // Levitation for 10 seconds
+         "type": "pdapi:apply_status_effect",
+         "effect": "minecraft:levitation",
+         "duration": 200,
+         "amplifier": 0
+      }
+   ],
+   "name": "Levitating Wine"
+}
+```
+
+And just like that, you have a custom Specialty Drink!  This should show up in both REI and the Specialty Drinks Creative Tab.

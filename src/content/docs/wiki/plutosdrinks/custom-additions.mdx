@@ -1,0 +1,218 @@
+---
+title: "How to Create Custom Additions"
+desc: "This tutorial teaches you how to create custom drink additions in the Pluto's Drinks Series"
+---
+
+This guide will show you how to add custom additions to PDAPI using datapacks.  This is a simple 3 step process.  This tutorial assumes you already have a base datapack created and a basic understanding of JSON files and how datapacks work.  If not, follow [this tutorial](https://minecraft.wiki/w/Tutorials/Creating_a_data_pack) to create one.
+
+## Step 1 - Creating the Add-In Data
+
+Within the namespace folder of your datapack, create a new folder named `drink_additions`.  This is where our custom additions will be stored.
+
+Create a new `.json` file, the name of this will be the id of your addition so choose wisely.  Below is the syntax of this `.json` file.  Any of these options can be omitted and the default value will be used.  The default values are shown below
+
+```json
+{
+   "chemicals": {
+      "pdapi:caffeine": 0,
+      "bartending:alcohol": 0
+   },
+   "changesColor": false,
+   "color": 0,
+   "onDrinkActions": [],
+   "weight": 0,
+   "name": "Example Name"
+}
+```
+`chemicals`: An object containing all of the chemicals in the addition (defaults to a map of every chemical at zero, only chemicals not at 0 need to be specified)
+
+- `pdapi:caffeine`: The amount of caffeine in the drink (Defaults to `0`)
+
+- `bartending:alcohol`: The amount of alcohol in the drink (Defaults to `0`) (`The Art of Bartending` Only)
+
+> Note: Other mods can add their own chemicals.  These are specified in the file in the same way as caffeine and alcohol.
+
+`changesColor`: Whether or not the add-in should change the color of the drink it is added to (Default: `false`)
+
+`color`: The color to add to the drink when `changesColor` is `true` in decimal form.  You can use [this page](https://minecraft.wiki/w/Dye#Color_values) to see some decimal color values that Minecraft uses (Default: `0`)
+
+`onDrinkActions`: The actions to perform when drinking something containing this add-in (see next step) (Default: `[]`)
+
+`weight`: The modification weight of **this specific** add-in.  Higher values are loaded later.  Basically, if one datapack specifies a drink addition, lets say `namespace:water`, and a second datapack also specifies that exact addition (the namespace and filename have to be exactly the same) then the one with the larger weight is used. (Default: `0`)
+
+`name`: The custom name that will be given to the addition.  This can be done either in the JSON file or in a resource pack by editing the translations file.  The base translation key for drink additions is `drink_addition.namespace.name_of_addition_file`.  If you would like for the tooltip of a drink to show the correct amount of an addition that has been added to a drink, (e.g. `- Mocha Syrup x2`) then `x%1$s` must be added to the end of the custom name.
+
+### Step 1 Example
+
+<details>
+    <summary> View </summary>
+
+    For this example, we will be creating an addition for when you add magma cream to a drink.  We want this to tint the drink red when added so we will be using the basic red color, whos color code is `16711680`.  Since all we need is a custom color, the file for this addition is very simple.  If I wanted to add local translations for this addition, I could use the translation key `drink_addition.example.magma_cream` in the language files, but to make things easy I will be adding the name directly in the JSON file.
+
+    `data/example/drink_additions/magma_cream.json`
+
+    ```json
+    {
+        "changesColor": true,
+        "color": 16711680,
+        "name": "Magma Cream x%1$s"
+    }
+    ```
+
+</details>
+
+## Step 2 - Adding OnDrinkActions
+
+Unless you want your add-in to be completely cosmetic, then you should probably add some actions.  These are added in the `onDrinkActions` array in the add-in file.  To add an action to your addition, first add a new object to the actions array.  In this object, specify the `type` for the action, as well as any extra options needed depending on the type.  Below is a preset list of action templates and their additional options to use.  Unlike the base options for a drink addition, **all** options for an action are required unless specified.
+
+<details>
+    <summary> Apply Effects </summary>
+
+    Id: `pdapi:apply_status_effect`
+
+    This action adds the specified [effect](https://minecraft.wiki/w/Effect#List) to the drinker.
+
+    `effect`: the id of the effect to add
+
+    `duration`: the duration of the effect in ticks.  Set to 1 if the effect is instant
+
+    `amplifier`: the amplifier of the effect.  Set to 0 if amplifier is not needed
+
+</details>
+
+<details>
+    <summary> Deal Damage </summary>
+
+    Id: `pdapi:deal_damage`
+
+    This action deals the specified amount of damage to the drinker from the specified source
+
+    `amount`: The Amount of damage to do (2 health = 1 heart)
+
+    `source`: The [Source](https://minecraft.wiki/w/Damage_type#List_of_damage_types) of the damage (e.g. fire, magic, etc)
+
+</details>
+
+<details>
+    <summary> Restore Hunger </summary>
+
+    Id: `pdapi:restore_hunger`
+
+    This action restores the specified amount of hunger and saturation to the user (same as eating basically)
+
+    `food`: The amount of hunger to restore (2 hunger = 1 meat bar thing)
+
+    `saturation`: The amount of saturation to restore
+
+</details>
+
+<details>
+    <summary> Clear Harmful Effects </summary>
+
+    Id: `pdapi:clear_harmful_effects`
+
+    This clears any harmful effects from the user.
+
+    `limit`: **Optional** The maximum amount of effects to clear. `-1` means all harmful effects.  (Defaults to `-1`)
+
+</details>
+
+<details>
+    <summary> Chorus Teleport </summary>
+
+    Id: `pdapi:chorus_teleport`
+
+    This action teleports the user as if having just eaten a chorus fruit.
+
+    `maxRadius`: The maximum radius in which the drinker can be teleported
+
+</details>
+
+<details>
+    <summary> Apply Effects in Radius </summary>
+
+    Id: `pdapi:apply_effect_radius`
+
+    This action applies an effect to every living entity in the radius
+
+    `radius`: The radius in blocks to apply the effect
+
+    `includeDrinker`: Whether the person who drank the drink should receive the effect as well
+
+    `effect`: The ID of the effect to apply
+
+    `duration`: The duration in ticks of the effect
+
+    `amplifier`: The amplifier of the effect
+
+</details>
+
+### Step 2 Example
+
+<details>
+    <summary> View </summary>
+
+    Continuing with our previous example, we can make it so that when magma cream is added to a drink, it can give the user Fire Resistance.  We can add an `onDrinkAction` that applies Fire Resistance II to the player for 30 seconds.  This would make the options for the action as follows.
+
+    `"effect": "minecraft:fire_resistance"` - The ID for Fire Resistance
+
+    `"duration": 600` - 30 seconds * 20 ticks/second = 600 ticks
+
+    `"amplifier": 1` - Amplifiers start at 0 and each increasing amplifier increases the level of the effect by 1, getting us Fire Resistance II.
+
+    This is our addition file so far:
+
+    `data/example/drink_additions/magma_cream.json`
+
+    ```json
+    {
+        "changesColor": true,
+        "color": 16711680,
+        "name": "Magma Cream x%1$s",
+        "onDrinkActions": [
+            {
+                "type": "pdapi:apply_status_effect",
+                "effect": "minecraft:fire_resistance",
+                "duration": 600,
+                "amplifier": 1
+            }
+        ]
+    }
+    ```
+
+</details>
+
+
+## Step 3 - Creating the Workstation Recipe
+
+We are almost done! The last thing we need to do is create a recipe that allows us to add this into a drink using an item.  This is done the same way you add any custom recipe to the game in a datapack.
+
+Create a new folder in your namespace called `recipes`.  Then create a new file for the addition recipe.  You can name this anything you want, a common name would be `[ADDITION NAME]_workstation.json`.
+
+Below is the syntax of a Workstation recipe, using our Magma Cream example from earlier.
+
+`data/example/recipes/magma_cream_workstation.json`
+
+```json
+{
+   "type": "pdapi:drink_workstation",
+   "base": {
+      "tag": "pdapi:workstation_drinks"
+   },
+   "addition": {
+      "item": "minecraft:magma_cream"
+   },
+   "result": "example:magma_cream"
+}
+```
+
+In the `type` option, this should be set to `pdapi:drink_workstation`
+
+`base` is the base drink that this item can be added to. This uses the standard [Ingredient](https://minecraft.wiki/w/Recipe/Ingredient) syntax that most recipes use.  To automatically allow *any* drink to be used as the input, use the tag `pdapi:workstation_drinks` as shown above, or you can specify a specific item if you only want your ingredient to be able to be added to a single drink, say Brewed Coffee.
+
+`addition` is the item that results in your addition. For this example, we want to use Magma Cream.  This also uses the standard Ingredient syntax.
+
+`result` is the ID of the resulting addition.  This consists of the namespace of your datapack (`example` in this case) and the filename of the addition data, without the `.json` (`magma_cream` in this case).
+
+
+And just like that, you have created a custom addition that you can add to a drink!

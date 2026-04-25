@@ -30,7 +30,11 @@ export default defineConfig({
     components: {
       Head: "./src/components/Head.astro",
       Header: "./src/components/Header.astro",
-      Sidebar: "./src/components/Sidebar.astro"
+      Sidebar: "./src/components/Sidebar.astro",
+      PageFrame: "./src/components/replacement/PageFrame.astro",
+      Pagination: "./src/components/replacement/Pagination.astro",
+      ContentPanel: "./src/components/replacement/ContentPanel.astro",
+      MarkdownContent: "./src/components/replacement/MarkdownContent.astro"
     }
   }), expressiveCode()],
 
