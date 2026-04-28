@@ -7,6 +7,14 @@ export class LinkItem {
     }
 }
 
+export class Spec {
+    name; rawDesc;
+    constructor(name: string, rawDesc: string) {
+        this.name = name;
+        this.rawDesc = rawDesc;
+    }
+}
+
 export class ImageInfo {
     name; value;
     constructor(name: string, value: ImageInfo[] | (string | LinkItem)[]) {
@@ -17,7 +25,7 @@ export class ImageInfo {
 
 export class DocInfo {
     info; specs;
-    constructor(info: ImageInfo[], specs: {name: string, rawDesc: string}[]) {
+    constructor(info: ImageInfo[], specs: Spec[]) {
         this.info = info;
         this.specs = specs;
     }

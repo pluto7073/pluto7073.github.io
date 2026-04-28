@@ -2,7 +2,7 @@ import { glob } from "astro/loaders";
 import { defineCollection, z } from "astro:content"
 import { docsLoader } from "@astrojs/starlight/loaders";
 import { docsSchema } from "@astrojs/starlight/schema";
-import { DocInfo } from "./pages/scripts/DocInfo.ts";
+import { DocInfo } from "./scripts/DocInfo.ts";
 
 const mods = defineCollection({
     loader: glob({ base: "./src/content/mods", pattern: '**/*.mdx' }),

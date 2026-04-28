@@ -1,9 +1,32 @@
 ---
 import OldPageSidebar from "@astrojs/starlight/components/PageSidebar.astro"
 import { Tabs, TabItem } from "@astrojs/starlight/components";
-import { DocInfo, ImageInfo, LinkItem } from "../../scripts/DocInfo.ts";
+import { render } from "astro:content";
+import { DocInfo, ImageInfo, LinkItem, Spec } from "../../scripts/DocInfo.ts";
+import { count } from "../SidebarContents.astro";
 
 const { entry, id } = Astro.locals.starlightRoute;
+
+entry.data.info = {
+    info: [{
+        name: "Test",
+        value: [ "https://github.com/pluto7073/TheArtOfBartending-Fabric/blob/1.20/images/models/vine_frame.png" ]
+    }],
+    specs: [
+        { name: "[Renewable](https://minecraft.wiki/w/Renewable_resources)", rawDesc: "Yes" },
+        { name: "Stackable", rawDesc: "Yes (64)" },
+        { name: "Tool", rawDesc: "<img src='https://minecraft.wiki/images/SlotSprite_Axe_Required.png?051ff' width='32' alt='axe'/>" },
+        { name: "[Blast Resistance](https://minecraft.wiki/w/Explosion#Blast_resistance)", rawDesc: "3" },
+        { name: "[Hardness](https://minecraft.wiki/w/Breaking#Blocks_by_hardness)", rawDesc: "2" },
+        { name: "[Luminous](https://minecraft.wiki/w/Light)", rawDesc: "No" },
+        { name: "[Transparent](https://minecraft.wiki/w/Opacity)", rawDesc: "Yes" },
+        { name: "[Waterloggable](https://minecraft.wiki/w/Waterlogging)", rawDesc: "No" },
+        { name: "[Flammable](https://minecraft.wiki/w/Flammable)", rawDesc: "No" },
+        { name: "Catches fire from [lava](https://minecraft.wiki/w/Lava)", rawDesc: "No" },
+        { name: "[Map Color](https://minecraft.wiki/w/Map_color)",
+            rawDesc: "<span><span className=\"block bg-[#8f7748] border-2 border-[#888] border-solid rounded-md text-transparent w-[1em] h-[1em] align-[-0.36em] mr-[-0.1em]\"> <br/> </span> 13 WOOD</span>" }
+    ]
+} as DocInfo;
 
 interface F1<U, R> {
     (u: U): R
@@ -13,6 +36,82 @@ interface F2<U1, U2, R> {
     (u1: U1, u2: U2): R
 }
 
+function getStr(val: LinkItem | Spec | ImageInfo | DocInfo, tabPrefix: string = ""): string {
+    if (!val) {
+        return tabPrefix + "null,\n";
+    }
+    let out = tabPrefix + "{";
+    if (val instanceof LinkItem) {
+        let link = val as LinkItem;
+        if (!link.desc || !link.url) {
+            return tabPrefix + "null,\n";
+        }
+        out += tabPrefix + "\tdesc: \"";
+        out += link.desc;
+        out += "\",\n" + tabPrefix +  "\turl: \"";
+        out += link.url;
+        out += "\"\n"
+    } else if (val instanceof Spec) {
+        let spec = val as Spec;
+        if (!spec.name || !spec.rawDesc) {
+            return "null,\n";
+        }
+        out += tabPrefix + "\tname: \"";
+        out += spec.name;
+        out += "\",\n" + tabPrefix +  "\trawDesc: \"";
+        out += spec.rawDesc;
+        out += "\"\n";
+    } else if (val instanceof ImageInfo) {
+        let info = val as ImageInfo;
+        if (!info.name || !info.value) {
+            return "null,\n";
+        }
+        out += tabPrefix + "\tname: \"";
+        out += info.name;
+        out += "\",\n" + tabPrefix + "\tvalue: [\n"
+        let prefix = tabPrefix + "\t\t";
+        if (info.value[0] instanceof ImageInfo) {
+            let subInfos = info.value as ImageInfo[];
+            for (let subInf of subInfos) {
+                out += getStr(subInf, prefix);
+            }
+        } else {
+            let images = info.value as (string | LinkItem)[];
+            for (let image of images) {
+                if (image instanceof LinkItem) {
+                    out += getStr(image as LinkItem, prefix);
+                    out += ",\n"
+                } else {
+                    out += prefix + "\"" + image + "\",\n"
+                }
+            }
+            out += tabPrefix + "\t]\n"
+        }
+    } else if (val instanceof DocInfo) {
+        let doc = val as DocInfo;
+        if (!doc.info || !doc.specs) {
+            return "null,\n";
+        }
+        out += tabPrefix + "\tinfo: [\n"
+        for (let inf of doc.info) {
+            out += getStr(inf, tabPrefix + "\t\t") + ",\n";
+        }
+        out += tabPrefix + "\t],\nspecs: [";
+        for (let spec of doc.specs) {
+            out += getStr(spec, tabPrefix + "\t\t") + ",\n";
+        }
+        out += tabPrefix + "\t]\n";
+    }
+    out += tabPrefix + "}";
+    return out;
+}
+
+console.log("Test 1")
+if (entry.data.info) {
+    console.log("Test 2")
+    console.log(getStr(entry.data.info as DocInfo));
+}
+
 /*
 * tabsConstructor - Takes in a list of the html elements (U) and returns a single html element representing the whole list <Tabs> </Tabs>
 * itemConstructor - Takes in a title (string) and a html element of contents (U) and returns a single tab element <TabItem> <img ... /> </TabItem>
@@ -20,16 +119,23 @@ interface F2<U1, U2, R> {
 * */
 function imageHeadersToTabs<U>(tabsConstructor: F1<U[] | U, U>, itemConstructor: F2<string, (string | LinkItem)[], U>, tabOfTabsConstructor: F2<string, U, U>, infos: ImageInfo[]): U {
     let tabItems: U[] = [];
-    if (infos.length === 1) {
-        return itemConstructor("", infos[0].value as (string | LinkItem)[]);
+    if (!infos) {
+        return undefined;
     }
     infos.map(i => {
         if (i.value[0] instanceof ImageInfo) {
             let list = i.value as ImageInfo[];
+            console.log(i.name);
+            if (!i.name || i.name === "") {
+                i.name = "Empty";
+            }
             let tabItem = tabOfTabsConstructor(i.name, imageHeadersToTabs(tabsConstructor, itemConstructor, tabOfTabsConstructor, list));
             tabItems.push(tabItem);
         } else {
             let list = i.value as (string | LinkItem)[];
+            if (!i.name  || i.name === "") {
+                i.name = "Empty";
+            }
             let tabItem = itemConstructor(i.name, list);
             tabItems.push(tabItem);
         }
@@ -37,32 +143,61 @@ function imageHeadersToTabs<U>(tabsConstructor: F1<U[] | U, U>, itemConstructor:
 
     return tabsConstructor(tabItems);
 }
+
+async function buildSingle(value: Spec) {
+    return { name: (await render({ id: id + ".head", body: value.name, collection: entry.collection, data: entry.data })).Content, desc: (await render({ id: id + ".head", body: value.rawDesc, collection: entry.collection, data: entry.data })).Content };
+}
+
+async function buildSpecs() {
+    if (!entry.data.info || !entry.data.info.info || !entry.data.info.specs) {
+        return [];
+    }
+    console.log(entry.data.info.specs)
+    return await Promise.allSettled(((entry.data.info.specs as Spec[]).map(async (spec) => await buildSingle(spec))));
+}
+
+let specs: { name: any, desc: any }[] = (await buildSpecs()).map(res => {
+    if (res.hasOwnProperty("value")) {
+        return (res as PromiseFulfilledResult<{ name: any, desc: any }>).value;
+    } else return null;
+}).filter(val => val != null);
+
+function getter<U>(func: { (): U }) {
+    return func();
+}
 ---
 
-{entry.data.info && ( <table>
-    <tr> <th> **{id.split('-').map(val => val.replace(val.at(0) ?? "", (val.at(0)?.toUpperCase() ?? "") + " "))}** </th></tr>
-    <tr> <td> {
-        imageHeadersToTabs(items => (
-            <Tabs>
-                {items}
-            </Tabs>
-        ),   (label, list) => (
-            <TabItem label={label}>
-                { list.map( e => {
-                    if (e instanceof LinkItem) {
-                        return (<img src={(e as LinkItem).url} alt={(e as LinkItem).desc} width="200"/>);
-                    } else {
-                        return (<img src={e} alt="model" width="200"/>);
-                    }
-                }) }
-            </TabItem>
-        ), (label, tabs) => (
-                <TabItem label={label}>
-                    {tabs}
-                </TabItem>
-        ), entry.data.info.info as ImageInfo[])
-    }</td></tr>
-    <!-- TODO specs here (<tr> <td> name.render() </td> <td> rawDesc.render() </td> </tr> -->
-</table> )}
+<!--{getter(() => {
+    if (!entry.data.info) {
+        return ( <table> </table> );
+    }
+    return ( <table>
+        <tr> <th> {id.split("/")[count("/", id)].split("-").map(val => val.replace(val.at(0) ?? "", " " + (val.at(0)?.toUpperCase() ?? "")))} </th></tr>
+        <tr> <td> {
+            imageHeadersToTabs(items => (
+                    <Tabs>
+                        {items}
+                    </Tabs>
+            ),   (label, list) => (
+                    <TabItem label={label}>
+                        { list.map( e => {
+                            if (e instanceof LinkItem) {
+                                return (<img src={(e as LinkItem).url} alt={(e as LinkItem).desc} width="200"/>);
+                            } else {
+                                return (<img src={e} alt="model" width="200"/>);
+                            }
+                        }) }
+                    </TabItem>
+            ), (label, tabs) => (
+                    <TabItem label={label}>
+                        {tabs}
+                    </TabItem>
+            ), entry.data.info.info as ImageInfo[])
+        }</td></tr>
+        { specs.map(val => (
+            <tr> <th> {val.name} </th> <td> {val.desc} </td> </tr>
+        )) }
+    </table> );
+})}-->
 
 <OldPageSidebar/>
