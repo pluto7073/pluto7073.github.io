@@ -34,7 +34,8 @@ export default defineConfig({
       PageFrame: "./src/components/replacement/PageFrame.astro",
       Pagination: "./src/components/replacement/Pagination.astro",
       ContentPanel: "./src/components/replacement/ContentPanel.astro",
-      MarkdownContent: "./src/components/replacement/MarkdownContent.astro"
+      MarkdownContent: "./src/components/replacement/MarkdownContent.astro",
+      PageSidebar: "./src/components/replacement/PageSidebar.astro"
     }
   }), expressiveCode()],
 

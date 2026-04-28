@@ -1,0 +1,446 @@
+---
+title: "Recipes"
+desc: "Recipes for different alcoholic drinks in The Art of Bartending"
+---
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+<br/>
+
+:::note
+The contents of this page apply to [The Art of Bartending](https://modrinth.com/mod/bartending)
+:::
+
+<div className="w-full max-w-full h-full max-h-full grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="rounded-2xl bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 transition-all duration-300 hover:bg-slate-900/80 hover:transform hover:scale-105 p-5 ml-5 mr-5">
+        ## Beer
+        <Tabs>
+            <TabItem label="Beer">
+                - 24x [Wheat](https://minecraft.wiki/w/Wheat)
+
+                [Fermented](boiler#usage) for 40 minutes
+
+                ---
+
+                [Barrel aged](fermenting-barrels#usage) in [any barrel](fermenting-barrels) for ½ year.
+
+                ---
+
+                [Bottled](bottler) in a [jug](glassware#jug)
+            </TabItem>
+            <TabItem label="Wheat Beer">
+                - 12x [Wheat](https://minecraft.wiki/w/Wheat)
+
+                [Fermented](boiler#usage) for 30 minutes
+
+                ---
+
+                [Barrel aged](fermenting-barrels#usage) in a [birch barrel](fermenting-barrels) for ⅓ year.
+
+                ---
+
+                [Bottled](bottler) in a [jug](glassware#jug)
+            </TabItem>
+            <TabItem label="Dark Beer">
+                - 32x [Wheat](https://modrinth.wiki/w/Wheat)
+
+                [Fermented](boiler#usage) for 1 hour
+
+                ---
+
+                [Barrel aged](fermenting-barrels#usage) in a [dark oak barrel](fermenting-barrels) for ⅔ year.
+
+                ---
+
+                [Bottled](bottler) in a [jug](glassware#jug)
+            </TabItem>
+        </Tabs>
+    </div>
+    <div className="rounded-2xl bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 transition-all duration-300 hover:bg-slate-900/80 hover:transform hover:scale-105 p-5 ml-5 mr-5">
+        ## Mead
+        <Tabs>
+            <TabItem label="Mead">
+                - 8x [Honey Bottle](https://minecraft.wiki/w/Honey_Bottle)
+
+                [Fermented](boiler#usage) for 15 minutes
+
+                ---
+
+                [Barrel aged](fermenting-barrels#usage) in an [oak barrel](fermenting-barrels) for 4 years.
+
+                ---
+
+                [Bottled](bottler#usage) in a [wine bottle](glassware#wine-bottle)
+            </TabItem>
+            <TabItem label="Apple Mead">
+                - 8x [Honey Bottle](https://minecraft.wiki/w/Honey_Bottle)
+                - 16x [Apple](https://minecraft.wiki/w/Apple)
+
+                [Fermented](boiler#usage) for 15 minutes
+
+                ---
+
+                [Barrel aged](fermenting-barrels#usage) in an [oak barrel](fermenting-barrels) for 4 years.
+
+                ---
+
+                [Bottled](bottler#usage) in a [wine bottle](glassware#wine-bottle)
+            </TabItem>
+        </Tabs>
+    </div>
+    <div className="rounded-2xl bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 transition-all duration-300 hover:bg-slate-900/80 hover:transform hover:scale-105 p-5 ml-5 mr-5">
+        ## Wine
+        <Tabs>
+            <TabItem label="Red">
+                - 192x (3s) [Red Grapes](grape)
+
+                Fermented for 20 minutes
+
+                ---
+
+                Barrel aged in any barrel for 2 years.
+
+                ---
+
+                Bottled in a wine bottle
+            </TabItem>
+            <TabItem label="White">
+                - 192 (3s) [Skinned Grapes](grape)
+
+                Fermented for 20 minutes
+
+                ---
+
+                Barrel aged in any barrel for 2 years.
+
+                ---
+
+                Bottled in a wine bottle
+            </TabItem>
+            <TabItem label="Sweet Berry">
+                - 192 (3s) [Sweet Berries](https://minecraft.wiki/w/Sweet_Berries)
+
+                Fermented for 20 minutes
+
+                ---
+
+                Barrel aged in any barrel for 1 year.
+
+                ---
+
+                Bottled in a wine bottle
+            </TabItem>
+            <TabItem label="Glow Berry">
+                - 192 (3s) [Glow Berries](https://minecraft.wiki/Glow_Berries)
+
+                Fermented for 5 minutes
+
+                ---
+
+                Barrel aged in any barrel for 1 year.
+
+                ---
+
+                Bottled in a wine bottle
+            </TabItem>
+            <TabItem label="Champagne">
+                **Base**: **White Wine** or **Glow Berry Wine**
+
+                ---
+
+                Barrel aged in any barrel for 1 year.
+
+                ---
+
+                Bottled in a wine bottle
+            </TabItem>
+        </Tabs>
+    </div>
+    <div className="rounded-2xl bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 transition-all duration-300 hover:bg-slate-900/80 hover:transform hover:scale-105 p-5 ml-5 mr-5">
+        ## Nether Wines
+        <Tabs>
+            <TabItem label="Crimson">
+                - 96x [Crimson Fungus](https://minecraft.wiki/w/Crimson_Fungus)
+                - 128x [Crimson Botanicals](botanicals#crimson)
+
+                Fermented for 40 minutes
+
+                ---
+
+                Barrel aged in a **crimson barrel** for 2 years.
+
+                ---
+
+                Bottled in a wine bottle
+            </TabItem>
+            <TabItem label="Warped">
+                - 128x [Warped Botanicals](botanicals#warped)
+                - 96x [Warped Fungus](https://minecraft.wiki/w/Warped_Fungus)
+
+                Fermented for 40 minutes
+
+                ---
+
+                Barrel aged in a **warped barrel** for 2 years.
+
+                ---
+
+                Bottled in a wine bottle
+            </TabItem>
+        </Tabs>
+    </div>
+    <div className="rounded-2xl bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 transition-all duration-300 hover:bg-slate-900/80 hover:transform hover:scale-105 p-5 ml-5 mr-5">
+        ## Neutral Spirits
+        <Tabs>
+            <TabItem label="Grain Alcohol">
+                - 128x Wheat
+                **OR**
+                - 128x Skinned Grapes
+                **OR**
+                - 128x [Potatoes or Poisonous Potatoes](https://minecraft.wiki/w/Potato)
+
+                Fermented for 30 minutes
+
+                ---
+
+                [Distilled](distillery#usage) 6 times.
+
+                ---
+
+                Bottled in a [liquor bottle](glassware#liquor-bottle)
+            </TabItem>
+            <TabItem label="Vodka">
+                - 10x Wheat
+                **OR**
+                - 10x Skinned Grapes
+                **OR**
+                - 10x [Potatoes or Poisonous Potatoes](https://minecraft.wiki/w/Potato)
+
+                Fermented for 20 minutes
+
+                ---
+
+                [Distilled](distillery#usage) 3 times.
+
+                ---
+
+                Bottled in a [liquor bottle](glassware#liquor-bottle)
+            </TabItem>
+            <TabItem label="Vodka (Dillution)">
+                **Base**: **Grian Alcohol**
+
+                ---
+
+                - 2x Water Bottle
+
+                ---
+
+                Bottled in a [liquor bottle](glassware#liquor-bottle)
+            </TabItem>
+        </Tabs>
+    </div>
+    <div className="rounded-2xl bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 transition-all duration-300 hover:bg-slate-900/80 hover:transform hover:scale-105 p-5 ml-5 mr-5">
+        ## Other Liquors and Spirits
+        <Tabs>
+            <TabItem label="Rum">
+                - 50x [Sugar Cane](https://minecraft.wiki/w/Sugar_Cane)
+
+                Fermented for 3:45
+
+                ---
+
+                Distilled twice.
+
+                ---
+
+                Barrel aged in any oak barrel for 1 year.
+
+                ---
+
+                Bottled in a liquor bottle
+            </TabItem>
+            <TabItem label="Tequila">
+                - 20x [Cactus](https://minecraft.wiki/w/Cactus)
+
+                Fermented for 20 minutes
+
+                ---
+
+                Distilled twice.
+
+                ---
+
+                Barrel aged in a birch barrel for 1 year.
+
+                ---
+
+                Distilled twice.
+
+                ---
+
+                Bottled in a liquor bottle
+            </TabItem>
+            <TabItem label="Whiskey">
+                - 64x Wheat
+
+                Fermented for 10 minutes
+
+                ---
+
+                Distilled twice.
+
+                ---
+
+                Fermented for 10 years.
+
+                ---
+
+                Bottled in a liquor bottle
+            </TabItem>
+            <TabItem label="Gin">
+                **Base**: **Vodka**
+
+                ---
+
+                Add:
+                - 10x [Blue Orchid, Lily of the Valley, Cornflower, or Allium](https://minecraft.wiki/w/Flower)
+                - 20x [Sweet Berries](https://minecraft.wiki/w/Sweet_Berries)
+                - 5x Botanicals
+
+                ---
+
+                Distilled twice.
+
+                ---
+
+                Bottled in a liquor bottle
+            </TabItem>
+            <TabItem label="Abstinthe">
+                **Base**: **Vodka**
+
+                - 128x [Grass, Tall Grass, Fern, or Tall Fern](https://minecraft.wiki/w/Grass)
+                - 32x [Wheat Seeds](https://minecraft.wiki/w/Wheat_Seeds)
+
+                ---
+
+                Distilled 6 times.
+
+                ---
+
+                Bottled in a wine bottle.
+            </TabItem>
+        </Tabs>
+    </div>
+    <div className="rounded-2xl bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 transition-all duration-300 hover:bg-slate-900/80 hover:transform hover:scale-105 p-5 ml-5 mr-5">
+        ## Fortified Wines
+        <Tabs>
+            <TabItem label="Sweet Vermouth">
+                **Base**: **Red Wine** or **Sweet Berry Wine**
+
+                ---
+
+                Add:
+                - 5x [Shot of Vodka](alcohol-shot)
+                - 3x [Sugar](https://minecraft.wiki/w/Sugar) or Honey Bottle
+                - 3x [Botanicals](botanicals)
+
+                ---
+
+                Barrel aged in any barrel for 1 year.
+
+                ---
+
+                Bottled in a wine bottle
+            </TabItem>
+            <TabItem label="Dry Vermouth">
+                **Base**: **White Wine** or **Glow Berry Wine**
+
+                ---
+
+                Add:
+                - 5x [Shot of Vodka](alcohol-shot)
+                - 3x [Botanicals](botanicals)
+
+                ---
+
+                Barrel aged in any barrel for 1 year.
+
+                ---
+
+                Bottled in a wine bottle
+            </TabItem>
+        </Tabs>
+    </div>
+    <div className="rounded-2xl bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 transition-all duration-300 hover:bg-slate-900/80 hover:transform hover:scale-105 p-5 ml-5 mr-5">
+        ## Liqueurs
+        <Tabs>
+            <TabItem label="Apple Liqueur">
+                **Base**: **Vodka**
+
+                ---
+
+                Add:
+                - 64x of any apple
+
+                ---
+
+                Distilled 3 times.
+
+                ---
+
+                Barrel aged in an acacia or cherry barrel for 6 years.
+
+                ---
+
+                Bottled in a liquor bottle
+            </TabItem>
+            <TabItem label="Coffee Liqueur">
+                :::note
+                Requires [Pluto's Coffee Mod](https://modrinth.com/mod/plutos-coffee-mod)
+                :::
+
+                **Base**: **Rum** or **Vodka**
+
+                ---
+
+                Add:
+                - 3x Sugar
+                - 16x [Roasted Coffee Bean](/wiki/plutosdrinks/plutoscoffee/roasted-coffee-beans)
+
+                ---
+
+                Barrel aged in any barrel for 0.1 years.
+
+                ---
+
+                Bottled in a liquor bottle
+            </TabItem>
+            <TabItem label="Orange Liqueur">
+                :::note
+                Requires [Fruitful Fun](https://modrinth.com/mod/fruitful-fun)
+                :::
+
+                - 10x [Beetroot](https://minecraft.wiki/w/Beetroot)
+
+                Fermented for 20 minutes
+
+                ---
+
+                Distilled twice.
+
+                ---
+
+                Add:
+                - 10x Orange
+
+                ---
+
+                Distilled 3 times.
+
+                ---
+
+                Bottled in a liquor bottle
+
+            </TabItem>
+        </Tabs>
+    </div>
+</div>

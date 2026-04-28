@@ -1,0 +1,68 @@
+---
+import OldPageSidebar from "@astrojs/starlight/components/PageSidebar.astro"
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import { DocInfo, ImageInfo, LinkItem } from "../../scripts/DocInfo.ts";
+
+const { entry, id } = Astro.locals.starlightRoute;
+
+interface F1<U, R> {
+    (u: U): R
+}
+
+interface F2<U1, U2, R> {
+    (u1: U1, u2: U2): R
+}
+
+/*
+* tabsConstructor - Takes in a list of the html elements (U) and returns a single html element representing the whole list <Tabs> </Tabs>
+* itemConstructor - Takes in a title (string) and a html element of contents (U) and returns a single tab element <TabItem> <img ... /> </TabItem>
+* tabOfTabsConstructor - Takes in a tabs element and returns a tabitem that contains it. <TabItem> <Tabs> ... </Tabs> </TabItem>
+* */
+function imageHeadersToTabs<U>(tabsConstructor: F1<U[] | U, U>, itemConstructor: F2<string, (string | LinkItem)[], U>, tabOfTabsConstructor: F2<string, U, U>, infos: ImageInfo[]): U {
+    let tabItems: U[] = [];
+    if (infos.length === 1) {
+        return itemConstructor("", infos[0].value as (string | LinkItem)[]);
+    }
+    infos.map(i => {
+        if (i.value[0] instanceof ImageInfo) {
+            let list = i.value as ImageInfo[];
+            let tabItem = tabOfTabsConstructor(i.name, imageHeadersToTabs(tabsConstructor, itemConstructor, tabOfTabsConstructor, list));
+            tabItems.push(tabItem);
+        } else {
+            let list = i.value as (string | LinkItem)[];
+            let tabItem = itemConstructor(i.name, list);
+            tabItems.push(tabItem);
+        }
+    })
+
+    return tabsConstructor(tabItems);
+}
+---
+
+{entry.data.info && ( <table>
+    <tr> <th> **{id.split('-').map(val => val.replace(val.at(0) ?? "", (val.at(0)?.toUpperCase() ?? "") + " "))}** </th></tr>
+    <tr> <td> {
+        imageHeadersToTabs(items => (
+            <Tabs>
+                {items}
+            </Tabs>
+        ),   (label, list) => (
+            <TabItem label={label}>
+                { list.map( e => {
+                    if (e instanceof LinkItem) {
+                        return (<img src={(e as LinkItem).url} alt={(e as LinkItem).desc} width="200"/>);
+                    } else {
+                        return (<img src={e} alt="model" width="200"/>);
+                    }
+                }) }
+            </TabItem>
+        ), (label, tabs) => (
+                <TabItem label={label}>
+                    {tabs}
+                </TabItem>
+        ), entry.data.info.info as ImageInfo[])
+    }</td></tr>
+    <!-- TODO specs here (<tr> <td> name.render() </td> <td> rawDesc.render() </td> </tr> -->
+</table> )}
+
+<OldPageSidebar/>

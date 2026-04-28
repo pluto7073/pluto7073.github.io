@@ -100,7 +100,7 @@ const { currentPage } = Astro.props as ExportProps;
 
 <ul class="top-level">{
     createTree(entries, item => (
-        <li class="single-link"><a href={"/wiki/" + item.slug} class="ml-6" class:list={[{large: count("/", currentPage) == 0}]} aria-current={currentPage == item.slug ? 'page' : undefined}><span> {item.label} </span></a></li>
+        <li class="single-link"><a href={"/wiki/" + item.slug} class="ml-6" aria-current={currentPage == item.slug ? 'page' : undefined}><span> {item.label} </span></a></li>
         ), (item, contents) => (
         <li><Dropdown docs={docs} isCurrent={item.slug ? item.slug == currentPage || currentPage.startsWith(item.slug) : false} label={item.label} slug={item.slug}>
             {contents}

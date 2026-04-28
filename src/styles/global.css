@@ -130,6 +130,24 @@
         animation: slideInUp 0.25s ease-out forwards;
     }
 
+    .recipe {
+        border-radius: var(--radius-2xl);
+        background-color: color-mix(in oklab, var(--color-slate-900), 60%, transparent);
+        border-style: solid;
+        border-width: 1px;
+        border-color: color-mix(in oklab, var(--color-slate-700), 50%, transparent);
+        transition-property: all;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 300ms;
+        padding: 1.25rem;
+
+        @media (hover: hover) {
+            background-color: color-mix(in oklab, var(--color-slate-900), 80%, transparent);
+            scale: 105%;
+            transform: scale(0);
+        }
+    }
+
     .post-card:nth-child(1) { animation-delay: 0.15s; }
     .post-card:nth-child(2) { animation-delay: 0.2s; }
     .post-card:nth-child(3) { animation-delay: 0.25s; }

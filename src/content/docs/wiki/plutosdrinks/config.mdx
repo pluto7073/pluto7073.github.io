@@ -1,0 +1,29 @@
+---
+title: "Settings Reference"
+desc: "All the configuration options for the Pluto's Drinks series"
+---
+
+All of these options can be edited by selecting the configuration pages for any of the Pluto's Drinks mods, excluding Consumable Chemicals.
+
+## Client
+
+### General
+- `doCaffeineShake`: (`boolean`) Whether the player should shake when they have high amounts of caffeine in them (Default: `true`)
+- `caffeineShakeThreshold`: (`double`) The level of caffeine in milligrams at which a player should start shaking (Default: `300.0`)
+
+### Pluto's Coffee Mod
+
+- `shouldShowCoffeeBar`: (`boolean`) Whether to show the amount of caffeine in the player above the hunger bar (Default: `true`)
+
+## Common
+
+### General
+- `doCaffeineOverdose` (`boolean`) Whether the player should take damage above a certain threshold of caffeine (Default: `true`)
+- `caffeineDamageMultiplier` (`double`) The amount of damage a player takes per tick at high caffeine levels (Default: `1.0`)
+- `lethalCaffeineDose` (`int`) The amount of caffeine in milligrams at which the player begins to take damage (Default: `5000`)
+
+### The Art of Bartending
+
+- `doBlackout`: (`boolean`) Whether players have the chance to black out after drinking too much alcohol (Default: `true`)
+- `yearLengthTicks`: (`int` > 0) The amount of ticks for a year to pass when barrel aging an alcoholic drink (Default: `72000` or 3 Minecraft Days)
+- `fermentationTimeScale`: (`double` > 0) The scale to apply to the amount of time needed for a drink to initially ferment (Default `1.0`)
