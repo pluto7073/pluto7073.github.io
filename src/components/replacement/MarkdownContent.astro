@@ -3,3 +3,12 @@ import '@astrojs/starlight/style/markdown.css';
 ---
 
 <div class="sl-markdown-content max-w-full w-full h-full min-h-full"><br/><slot /></div>
+
+<style is:global>
+    .sl-markdown-content ul {
+        list-style: unset;
+    }
+    .sl-markdown-content li {
+        margin-left: 1rem;
+    }
+</style>

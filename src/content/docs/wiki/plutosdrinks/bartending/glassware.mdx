@@ -1,0 +1,77 @@
+---
+title: "Glassware"
+desc: "The Art of Bartending adds several new glass items for use in the game"
+---
+
+The Art of Bartending adds several new glass items for use in the game.
+
+## Bottles
+
+<div className="w-full max-w-full grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="rounded-2xl bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 transition-all duration-300 hover:bg-slate-900/80 hover:transform hover:scale-105 p-5 ml-5 mr-5">
+        #### Beer Bottle
+        A beer bottle can be crafted using a [block of brown stained glass](https://minecraft.wiki/w/Stained_glass)
+        at a [stonecutter](https://minecraft.wiki/w/Stonecutter).
+
+        | Ingredients                                                   | [Crafting](https://minecraft.wiki/w/Crafting) recipe                                                                                                       |
+        |---------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+        | [Brown Stained Glass](https://minecraft.wiki/w/Stained_glass) | <img src="https://github.com/pluto7073/TheArtOfBartending-Fabric/blob/1.20/images/recipes/beer_bottle.png?raw=true" alt="beer bottle recipe" width="200"/> |
+    </div>
+    <div className="rounded-2xl bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 transition-all duration-300 hover:bg-slate-900/80 hover:transform hover:scale-105 p-5 ml-5 mr-5">
+        #### Wine Bottle
+        A wine bottle can be crafted using a block of green stained glass at a stonecutter.
+
+        | Ingredients                                                   | [Crafting](https://minecraft.wiki/w/Crafting) recipe                                                                                                       |
+        |---------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+        | [Green Stained Glass](https://minecraft.wiki/w/Stained_glass) | <img src="https://github.com/pluto7073/TheArtOfBartending-Fabric/blob/1.20/images/recipes/wine_bottle.png?raw=true" alt="wine bottle recipe" width="200"/> |
+    </div>
+    <div className="rounded-2xl bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 transition-all duration-300 hover:bg-slate-900/80 hover:transform hover:scale-105 p-5 ml-5 mr-5">
+        #### Liquor Bottle
+        A liquor bottle can be crafted using a block of glass at a stonecutter.
+
+        | Ingredients                             | [Stonecutting](https://minecraft.wiki/w/Cutting) recipe                                                                                                        |
+        |-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+        | [Glass](https://minecraft.wiki/w/Glass) | <img src="https://github.com/pluto7073/TheArtOfBartending-Fabric/blob/1.20/images/recipes/liquor_bottle.png?raw=true" alt="liquor bottle recipe" width="200"/> |
+    </div>
+    <div className="rounded-2xl bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 transition-all duration-300 hover:bg-slate-900/80 hover:transform hover:scale-105 p-5 ml-5 mr-5">
+        #### Jug
+        A jug can be crafted using a block of glass at a stonecutter.
+
+        | Ingredients                             | [Stonecutting](https://minecraft.wiki/w/Cutting) recipe                                                                                    |
+        |-----------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+        | [Glass](https://minecraft.wiki/w/Glass) | <img src="https://github.com/pluto7073/TheArtOfBartending-Fabric/blob/1.20/images/recipes/jug.png?raw=true" alt="jug recipe" width="200"/> |
+    </div>
+</div>
+
+All alcoholic drinks should be stored in one of the above types of bottles, except Beer Bottles.  If a drink can
+be stored in a beer bottle, it should also be stored in a Jug as the primary drink form of storage.  Beer Bottles
+are filled the same as other glasses.
+
+## Glasses
+
+The Art of Bartending adds 5 new glasses:
+- Tall Glass
+- Short Glass
+- Shot Glass
+- Wine Glass
+- Cocktail Glass
+
+All of these can be crafted with a glass bottle in a stonecutter.
+
+| Ingredients                                           | Stonecutting recipe                                                                                                                                 |
+|-------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Glass Bottle](https://minecraft.wiki/w/Glass_bottle) | <img src="https://github.com/pluto7073/TheArtOfBartending-Fabric/blob/1.20/images/recipes/glassware.png?raw=true" width="200" alt="glass recipes"/> |
+
+These glasses, except the shot glass and including the glass bottle, can also now be used as bases for specialty
+drinks, turning into mixed drinks with a texture matching the base glass or bottle.
+
+The Tall Glass, Wine Glass, and Cocktail glass can receive the below drinks:
+
+| Tall Glass | Wine Glass                            | Cocktail Glass         |
+|------------|---------------------------------------|------------------------|
+| Any Beer   | Any Wine Except Nether Wine, Vermouth | Nether Wines, Absinthe |
+
+The tall glass holds a starting value of 12 oz, while the wine and cocktail glasses hold starting sizes of 5 oz.
+If used as a base for a mixed drink the starting volume is 0 oz.
+
+The shot glass can be used to add alcohol to any other drink or alcohol recipe.

@@ -6,4 +6,123 @@ desc: "Grapes are an item and a crop that can be used as a food source or to bre
 The contents of this page apply to [The Art of Bartending](https://modrinth.com/mod/bartending)
 :::
 
-Grapes are an item and a crop that can be used as a food source or to brew alcohol
+A **grape** is a [food](https://minecraft.wiki/w/Food) [item](https://minecraft.wiki/w/Item) obtained from grape crops that can be used to [make wine](recipes), eat, or [turn into seeds](#crafting)
+
+**Grape Plants** are planted on a [vine frame](vine-frame) in [farmland](https://minecraft.wiki/w/Farmland) and used to grow red and green grapes depending on the variant of the plant.
+
+## Obtaining
+
+### Breaking & Harvesting
+Fully grown grape crops yield 1-9 grapes (4 ½ grapes per crop harvested on average).  Grape yield can be
+increased using a tool enchanted with [Fortune](https://minecraft.wiki/w/Fortune), with Fortune III the
+average increases to ~6 ½ grapes per crop.
+
+The first grape always drops, and then eight more attempts are made to drop a grape with a success rate
+of 57.14286% to yield the extra 0-8 drops.  Each level of Fortune enchantment increases the number of attempts
+by one.
+
+| Block                                                     | Grapes |
+|-----------------------------------------------------------|--------|
+| Hardness                                                  | 0      |
+| [Breaking](https://minecraft.wiki/w/Breaking) time (secs) |
+| Default                                                   | *0.05* |
+
+### Generated loot
+
+| Item                                                                                                                                                                                                      | Structure                                                                                                                                       | Container           | Quantity |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|----------|
+| <img src="https://github.com/pluto7073/TheArtOfBartending-Fabric/blob/1.20/src/main/resources/assets/bartending/textures/item/green_grape_seeds.png?raw=true" width="16" alt="seeds" /> Green Grape Seeds | <img src="https://minecraft.wiki/images/EnvSprite_new-village.png?3e8a5" alt="village" width="16"/> [Village](https://minecraft.wiki/w/Village) | Plains house chest  | 0–3      |
+| <img src="https://github.com/pluto7073/TheArtOfBartending-Fabric/blob/1.20/src/main/resources/assets/bartending/textures/item/green_grape_seeds.png?raw=true" width="16" alt="seeds" /> Green Grape Seeds | <img src="https://minecraft.wiki/images/EnvSprite_new-village.png?3e8a5" alt="village" width="16"/> [Village](https://minecraft.wiki/w/Village) | Savanna house chest | 0–5      |
+| <img src="https://github.com/pluto7073/TheArtOfBartending-Fabric/blob/1.20/src/main/resources/assets/bartending/textures/item/red_grape_seeds.png?raw=true" width="16" alt="seeds" /> Red Grape Seeds     | <img src="https://minecraft.wiki/images/EnvSprite_new-village.png?3e8a5" alt="village" width="16"/> [Village](https://minecraft.wiki/w/Village) | Plains house chest  | 0–3      |
+| <img src="https://github.com/pluto7073/TheArtOfBartending-Fabric/blob/1.20/src/main/resources/assets/bartending/textures/item/red_grape_seeds.png?raw=true" width="16" alt="seeds" /> Red Grape Seeds     | <img src="https://minecraft.wiki/images/EnvSprite_new-village.png?3e8a5" alt="village" width="16"/> [Village](https://minecraft.wiki/w/Village) | Savanna house chest | 0–5      |
+
+## Usage
+
+### Farming
+When farmed, grapes go through 8 stages of growth on the bottom and 4 on the top. (Starting at index 0 for both,
+bottom ages until 6, then top jumps to 3 and ages until 8, once at 7 the bottom also gets set to 7 and is
+ready for harvest).  However, there are only 8 total visual stages, with 1-7 being the same for both red and
+green grapes, and Stage 8 (index 7 for both) is where we see the color difference.
+
+Grapes require a [light level](https://minecraft.wiki/w/Light) of 8 or greater to plant and 9 or greater to grow.
+Crops grow faster if the farmland they are planted on is [hydrated](https://minecraft.wiki/w/Farmland#Hydration).
+Using [bone meal](https://minecraft.wiki/w/Bone_meal) on crops also increases the speed of growth by randomly
+increasing the growth stage 2-5 between the top and bottom.
+
+Crops break if pushed by a [piston](https://minecraft.wiki/w/Piston) or if their supporting farmland breaks or
+turns to dirt, dropping usual drops.
+
+### Food
+To eat a grape, press and hold `use` while it is selected in the [hotbatr](https://minecraft.wiki/w/Hotbar).
+Eating a grape restores 1 hunger.
+
+### Crafting
+4 of any kind of grape combination can be crafted into 4 skinned grapes.
+
+| Ingredients | [Crafting](https://minecraft.wiki/w/Crafting) recipe                                                                                                           |
+|-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Grape       | <img src="https://github.com/pluto7073/TheArtOfBartending-Fabric/blob/1.20/images/recipes/skinned_grape.png?raw=true" alt="skinned grape recipe" width="200"/> |
+
+### Alcohol Brewing
+> *Main Article: [Brewing Recipes](recipes)*
+
+Red grapes can be used to brew **red wine**.  Skinned grapes can be used to brew
+
+<div className="w-full max-w-full grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="rounded-2xl bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 transition-all duration-300 hover:bg-slate-900/80 hover:transform hover:scale-105 p-5 ml-5 mr-5">
+        #### Red Wine
+        - 192x (3s) **Red Grapes**
+
+        [Fermented](boiler#usage) for 20 minutes
+
+        ---
+
+        [Barrel aged](fermenting-barrels#usage) in [any barrel](fermenting-barrels) for 2 years.
+
+        ---
+
+        [Bottled](bottler#usage) in a [wine bottle](glassware#wine-bottle)
+    </div>
+    <div className="rounded-2xl bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 transition-all duration-300 hover:bg-slate-900/80 hover:transform hover:scale-105 p-5 ml-5 mr-5">
+        #### White Wine
+        - 192x (3s) **Skinned Grapes**
+
+        Fermented for 20 minutes
+
+        ---
+
+        Barrel aged in any barrel for 2 years.
+
+        ---
+
+        Bottled in a wine bottle
+    </div>
+    <div className="rounded-2xl bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 transition-all duration-300 hover:bg-slate-900/80 hover:transform hover:scale-105 p-5 ml-5 mr-5">
+        #### Grain Alcohol
+        - 128x **Skinned Grapes**
+
+        Fermented for 30 minutes
+
+        ---
+
+        [Distilled](distillery#usage) 6 times.
+
+        ---
+
+        Bottled in a [liquor bottle](glassware#liquor-bottle)
+    </div>
+    <div className="rounded-2xl bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 transition-all duration-300 hover:bg-slate-900/80 hover:transform hover:scale-105 p-5 ml-5 mr-5">
+        #### Vodka
+        - 10x **Skinned Grapes**
+
+        Fermented for 20 minutes
+
+        ---
+
+        Distilled 3 times.
+
+        ---
+
+        Bottled in a liquor bottle
+    </div>
+</div>
