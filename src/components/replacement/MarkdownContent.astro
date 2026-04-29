@@ -1,8 +1,18 @@
 ---
 import '@astrojs/starlight/style/markdown.css';
+import type {CollectionEntry} from "astro:content";
+
+type DocProps = CollectionEntry<"docs">;
+
+const doc = Astro.locals.starlightRoute.entry as DocProps;
 ---
 
-<div class="sl-markdown-content max-w-full w-full h-full min-h-full"><br/><slot /></div>
+<div class="sl-markdown-content max-w-full w-full h-full min-h-full">
+    <br/>
+    { doc.data.picture ? (<img src={doc.data.picture} alt="mod banner"/>) : undefined }
+    <br/>
+    <slot />
+</div>
 
 <style is:global>
     .sl-markdown-content ul {
